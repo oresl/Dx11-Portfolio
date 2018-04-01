@@ -31,7 +31,12 @@ void Window::Initialize()
 	InitializeConfig();
 	InitializeWindow();
 	InitializeDevices();
-	//mGame = new Game;
+
+	mTimer = new Timer;
+	mTimer->Initialize();
+
+	mGame = new Game;
+	mGame->Initialize();
 }
 
 void Window::Loop()
@@ -48,15 +53,14 @@ void Window::Loop()
 		}
 		else
 		{
-			// Update
+			mTimer->Update();
 			Input.Update();
+			mGame->Update(mTimer->GetDeltaTime());
 
-
+			mGame->PreRender();
+			
 			D3D.Clear();
-
-			if (Input.KeyUp(DIK_ESCAPE))
-				PostQuitMessage(0);
-
+			mGame->Render();
 			D3D.Present();
 		}
 	}
