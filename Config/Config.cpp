@@ -51,7 +51,17 @@ void Config::SetConfig(CS_Type type)
 	}
 
 	case CS_Log:
-	{break;}
+	{
+		ZeroMemory(&gCFLog, sizeof(CF_LOG));
+
+		UINT timestampType		= GetValueUINT(LOG, L"TimeStampType");
+		UINT level				= GetValueUINT(LOG, L"Level");
+
+		gCFLog.TimeStampType	= Clamp(timestampType, (UINT)0, (UINT)TIMESTAMP_TYPE_COUNT - 1);
+		gCFLog.Level			= Clamp(timestampType, (UINT)0, (UINT)LOG_TYPE_COUNT - 1);
+
+		break;
+	}
 
 	case CS_Terrain:
 	{break;}
