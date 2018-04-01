@@ -1,5 +1,8 @@
 #pragma once
 #include "..\Common\Pch.h"
+#include "..\Graphic\Camera.h"
+
+#include "Cube.h"
 
 class Game
 {
@@ -12,6 +15,10 @@ public:
 	void Render();
 
 private:
+	Camera* mCamera;
 
+	Cube* mCube;
+
+	void InitializeGameObject();
 };
 
