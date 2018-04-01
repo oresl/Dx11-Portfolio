@@ -1,4 +1,10 @@
-Debug/*.*
-Release/*.*
-x64/*.*
-Log/*.*
+## 업데이트 무시목록
+
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Ll]og/
+
+*.db
+*.opendb
