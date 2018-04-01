@@ -34,6 +34,9 @@
     <ClCompile Include="System\Window.cpp">
       <Filter>System</Filter>
     </ClCompile>
+    <ClCompile Include="System\DirectInput.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common\Func.h">
@@ -58,6 +61,9 @@
       <Filter>Graphic</Filter>
     </ClInclude>
     <ClInclude Include="System\Window.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="System\DirectInput.h">
       <Filter>System</Filter>
     </ClInclude>
   </ItemGroup>
