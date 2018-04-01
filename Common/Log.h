@@ -61,7 +61,7 @@ namespace writelog
 		// °æ·Î
 		wstring path = L"log\\";
 
-		if (FAILED(CheckDirectory(path)))
+		if (!CheckDirectory(path))
 			CreateDirectory(path.c_str(), NULL);
 
 		path += GetTimeStamp(TS_YYMMDD);
