@@ -159,6 +159,7 @@
     <ClCompile Include="Graphic\Direct3D.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="System\DirectInput.cpp" />
+    <ClCompile Include="System\Timer.cpp" />
     <ClCompile Include="System\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -170,6 +171,7 @@
     <ClInclude Include="GameSource\Game.h" />
     <ClInclude Include="Graphic\Direct3D.h" />
     <ClInclude Include="System\DirectInput.h" />
+    <ClInclude Include="System\Timer.h" />
     <ClInclude Include="System\Window.h" />
   </ItemGroup>
   <ItemGroup>

@@ -37,6 +37,9 @@
     <ClCompile Include="System\DirectInput.cpp">
       <Filter>System</Filter>
     </ClCompile>
+    <ClCompile Include="System\Timer.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common\Func.h">
@@ -64,6 +67,9 @@
       <Filter>System</Filter>
     </ClInclude>
     <ClInclude Include="System\DirectInput.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="System\Timer.h">
       <Filter>System</Filter>
     </ClInclude>
   </ItemGroup>
