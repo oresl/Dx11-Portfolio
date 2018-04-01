@@ -1,6 +1,6 @@
 #pragma once
 
-namespace math
+namespace func_math
 {
 	// 범위제한
 	template <typename type>
@@ -19,7 +19,7 @@ namespace math
 	}
 }
 
-namespace dir
+namespace func_dir
 {
 	static bool CheckDirectory(wstring path)
 	{
