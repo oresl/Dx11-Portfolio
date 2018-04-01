@@ -18,12 +18,14 @@ CF_LOG		gCFLog;
 
 Window::Window()
 {
-	//mGame = NULL;
+	mGame	= NULL;
+	mTimer	= NULL;
 }
 
 Window::~Window()
 {
-	//SafeDeletePtr(mGame);
+	SafeDeletePtr(mTimer);
+	SafeDeletePtr(mGame);
 }
 
 void Window::Initialize()
@@ -34,6 +36,7 @@ void Window::Initialize()
 
 	mTimer = new Timer;
 	mTimer->Initialize();
+	mTimer->SetStart();
 
 	mGame = new Game;
 	mGame->Initialize();
