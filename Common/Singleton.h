@@ -24,3 +24,4 @@ void classname::Delete()\
 #define GetInst(classname) classname::GetInstance()
 
 #define D3D GetInst(Direct3D)
+#define Input GetInst(DirectInput)
