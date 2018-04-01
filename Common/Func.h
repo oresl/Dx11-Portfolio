@@ -21,19 +21,19 @@ namespace math
 
 namespace dir
 {
-	static BOOL CheckDirectory(wstring path)
+	static bool CheckDirectory(wstring path)
 	{
 		DWORD result = GetFileAttributes(path.c_str());
 
 		// 경로가 잘못됨
 		if (result == INVALID_FILE_ATTRIBUTES)
-			return FALSE;
+			return false;
 
 		// 디렉토리
 		if (result & FILE_ATTRIBUTE_DIRECTORY)
-			return TRUE;
+			return true;
 
 		// 디렉토리는 아님
-		return FALSE;
+		return false;
 	}
 }
