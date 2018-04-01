@@ -19,6 +19,24 @@
     <Filter Include="System">
       <UniqueIdentifier>{749e690e-4d6b-4b25-be13-8312fe356494}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameSource\Landscape">
+      <UniqueIdentifier>{49f2dc1d-ee8a-4639-b743-3b12d9cbbdd9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSource\ETC">
+      <UniqueIdentifier>{3467a2a4-a178-434f-bfb9-9aaf813fb78e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSource\Unit">
+      <UniqueIdentifier>{be4d1832-1553-4d12-8f51-1b97830c9533}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphic\Camera">
+      <UniqueIdentifier>{00ea7aee-4502-45fb-bf08-90a55f39c108}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RenderResource">
+      <UniqueIdentifier>{ed9fbfd2-533a-44a7-8c00-af49e8d1fb13}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSource\Buffer">
+      <UniqueIdentifier>{0cd242bc-5d74-40cb-a19b-34619ce44d8c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
@@ -39,6 +57,21 @@
     </ClCompile>
     <ClCompile Include="System\Timer.cpp">
       <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphic\Camera.cpp">
+      <Filter>Graphic\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderResource\VertexLayout.cpp">
+      <Filter>RenderResource</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSource\Cube.cpp">
+      <Filter>GameSource\ETC</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderResource\Shader.cpp">
+      <Filter>RenderResource</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderResource\RenderManager.cpp">
+      <Filter>RenderResource</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -72,10 +105,28 @@
     <ClInclude Include="System\Timer.h">
       <Filter>System</Filter>
     </ClInclude>
+    <ClInclude Include="Graphic\Camera.h">
+      <Filter>Graphic\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderResource\VertexLayout.h">
+      <Filter>RenderResource</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSource\Cube.h">
+      <Filter>GameSource\ETC</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderResource\Shader.h">
+      <Filter>RenderResource</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderResource\RenderManager.h">
+      <Filter>RenderResource</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Config\Config.ini">
       <Filter>Config</Filter>
+    </None>
+    <None Include="GameSource\Cube.fx">
+      <Filter>GameSource\ETC</Filter>
     </None>
   </ItemGroup>
 </Project>
