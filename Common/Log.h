@@ -1,7 +1,7 @@
 #pragma once
 #include <ctime>
 
-namespace writelog
+namespace log_timestamp
 {
 	typedef enum TIMESTAMP_TYPE_ENUM
 	{
@@ -38,6 +38,11 @@ namespace writelog
 
 		return data(buff);
 	}
+}
+
+namespace log_write
+{
+	using namespace log_timestamp;
 
 	typedef enum LOG_TYPE_ENUM
 	{
@@ -59,7 +64,7 @@ namespace writelog
 			return;
 
 		// 경로
-		wstring path = L"log\\";
+		wstring path = L"Log\\";
 
 		if (!CheckDirectory(path))
 			CreateDirectory(path.c_str(), NULL);
@@ -90,10 +95,11 @@ namespace writelog
 		file.close();
 	}
 
-	static void WriteShaderLog(wstring msg)
+	static void WriteShaderLog(ID3D10Blob* error)
 	{
-		if (msg.size() == 0)
-			return;
+		string msg = (const char*)error->GetBufferPointer();
+		wstringstream ws;
+		ws << msg.c_str();
 
 		// 경로
 		wstring path = L"log\\";
@@ -110,10 +116,12 @@ namespace writelog
 		// 로그형식
 		wstring log = GetTimeStamp((TS_Type)gCFLog.TimeStampType);
 		log += L"\n";
-		log += msg;
+		log += ws.str();
 		log += L"\n";
 
 		file << log.c_str();
 		file.close();
+
+		SafeReleaseCom(error);
 	}
 }
