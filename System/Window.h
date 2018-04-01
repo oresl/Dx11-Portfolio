@@ -3,6 +3,7 @@
 #include "..\Config\Config.h"
 #include "..\Graphic\Direct3D.h"
 #include "..\GameSource\Game.h"
+#include "DirectInput.h"
 
 
 class Window
@@ -18,7 +19,7 @@ private:
 
 	void InitializeConfig();
 	void InitializeWindow();
-	void InitializeGraphic();
+	void InitializeDevices();
 
 };
 

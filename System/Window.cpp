@@ -30,7 +30,7 @@ void Window::Initialize()
 {
 	InitializeConfig();
 	InitializeWindow();
-	InitializeGraphic();
+	InitializeDevices();
 	//mGame = new Game;
 }
 
@@ -48,7 +48,14 @@ void Window::Loop()
 		}
 		else
 		{
+			// Update
+			Input.Update();
+
+
 			D3D.Clear();
+
+			if (Input.KeyUp(DIK_ESCAPE))
+				PostQuitMessage(0);
 
 			D3D.Present();
 		}
@@ -143,7 +150,8 @@ void Window::InitializeWindow()
 #pragma endregion
 }
 
-void Window::InitializeGraphic()
+void Window::InitializeDevices()
 {
 	D3D.Initialize();
+	Input.Initialize();
 }
