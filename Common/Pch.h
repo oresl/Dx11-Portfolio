@@ -4,7 +4,9 @@
 #include <assert.h>
 #include <string>
 #include <fstream>
-
+#include <vector>
+#include <map>
+#include <sstream>
 using namespace std;
 
 // DirectX 11
@@ -60,11 +62,11 @@ extern CF_LOG		gCFLog;
 // Custom Çì´õ
 #include "Func.h"
 
-using namespace math;
-using namespace dir;
+using namespace func_math;
+using namespace func_dir;
 
 #include "Singleton.h"
 #include "Log.h"
 
-using namespace writelog;
+using namespace log_write;
 
