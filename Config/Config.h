@@ -6,7 +6,7 @@ class Config
 public:
 	Config();
 	~Config();
-	void Initialize(wstring configPath);
+	void		Initialize(wstring configPath);
 
 private:
 	typedef enum CONFIG_SECTION_TYPE_ENUM
@@ -28,12 +28,12 @@ private:
 	const WCHAR SKYPLANE[9]		= L"SkyPlane";
 	const WCHAR WATER[6]		= L"Water";
 
-	wstring mConfigPath;
+	wstring		mConfigPath;
 
-	void SetConfig(CS_Type type);
-	const wstring GetValueString(const WCHAR* section, const WCHAR* key);
-	const UINT GetValueUINT(const WCHAR* section, const WCHAR* key);
-	const FLOAT GetValueFLOAT(const WCHAR* section, const WCHAR* key);
-	const BOOL GetValueBOOL(const WCHAR* section, const WCHAR* key);
+	void		SetConfig(CS_Type type);
+	wstring		GetValueString(const WCHAR* section, const WCHAR* key);
+	UINT		GetValueUINT(const WCHAR* section, const WCHAR* key);
+	FLOAT		GetValueFLOAT(const WCHAR* section, const WCHAR* key);
+	BOOL		GetValueBOOL(const WCHAR* section, const WCHAR* key);
 };
 

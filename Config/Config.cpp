@@ -69,7 +69,7 @@ void Config::SetConfig(CS_Type type)
 	}
 }
 
-const wstring Config::GetValueString(const WCHAR* section, const WCHAR* key)
+wstring Config::GetValueString(const WCHAR* section, const WCHAR* key)
 {
 	WCHAR output[CONFIG_BUFFER_MAX];
 
@@ -78,7 +78,7 @@ const wstring Config::GetValueString(const WCHAR* section, const WCHAR* key)
 	return wstring(output);
 }
 
-const UINT Config::GetValueUINT(const WCHAR* section, const WCHAR* key)
+UINT Config::GetValueUINT(const WCHAR* section, const WCHAR* key)
 {
 	UINT output = GetPrivateProfileInt(section, key, (UINT)0, mConfigPath.c_str());
 
@@ -89,7 +89,7 @@ const UINT Config::GetValueUINT(const WCHAR* section, const WCHAR* key)
 	return output;
 }
 
-const FLOAT Config::GetValueFLOAT(const WCHAR* section, const WCHAR* key)
+FLOAT Config::GetValueFLOAT(const WCHAR* section, const WCHAR* key)
 {
 	WCHAR output[CONFIG_BUFFER_MAX];
 
@@ -98,7 +98,7 @@ const FLOAT Config::GetValueFLOAT(const WCHAR* section, const WCHAR* key)
 	return (FLOAT)_wtof(output);
 }
 
-const BOOL Config::GetValueBOOL(const WCHAR* section, const WCHAR* key)
+BOOL Config::GetValueBOOL(const WCHAR* section, const WCHAR* key)
 {
 	WCHAR output[CONFIG_BUFFER_MAX];
 
