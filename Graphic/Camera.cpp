@@ -34,12 +34,15 @@ void Camera::Initialize()
 	// 2D 프로젝션 행렬
 	D3DXMatrixOrthoLH
 	(
-		&mOrthoProjection,
+		&mOrtho,
 		(FLOAT)gCFEngine.ScreenX,
 		(FLOAT)gCFEngine.ScreenY,
 		gCFEngine.ScreenNear,
 		gCFEngine.ScreenDepth
 	);
+
+	// 버퍼 생성
+	CreateBuffer(D3D.GetDevice(), D3D11_BIND_CONSTANT_BUFFER, sizeof(BufferData), D3D11_USAGE_DYNAMIC, NULL, &mBuffer);
 }
 
 void Camera::Update(FLOAT delta)
@@ -97,7 +100,7 @@ void Camera::Update(FLOAT delta)
 #pragma endregion
 }
 
-void Camera::UpdateReflection()
+void Camera::UpdateReflection(FLOAT height)
 {
 	//D3DXVECTOR3 right	= D3DXVECTOR3(1.0F, 0.0F, 0.0F);
 	//D3DXVECTOR3 up		= D3DXVECTOR3(0.0F, 1.0F, 0.0F);
@@ -112,7 +115,7 @@ void Camera::UpdateReflection()
 
 	//D3DXVECTOR3 position;
 	//position.x =  mPosition.x;
-	//position.y = -mPosition.y + (gConfigLandscape.WaterLevel * 2.0f);
+	//position.y = -mPosition.y + height;
 	//position.z =  mPosition.z;
 
 	//D3DXMatrixLookAtLH(&mReflection, &position, &lookat, &up);
@@ -136,5 +139,27 @@ void Camera::SetJumpSpeed(FLOAT speed)				{ mJumpSpeed = speed; }
 
 D3DXMATRIX Camera::GetView()						{ return mView; }
 D3DXMATRIX Camera::GetProjection()					{ return mProjection; }
-D3DXMATRIX Camera::GetOrthoProjection()				{ return mOrthoProjection; }
+D3DXMATRIX Camera::GetOrtho()						{ return mOrtho; }
 D3DXMATRIX Camera::GetReflection()					{ return mReflection; }
+
+void Camera::SetBuffer()
+{
+	D3DXMATRIX view			= mView;
+	D3DXMATRIX projection	= mProjection;
+	D3DXMATRIX ortho		= mOrtho;
+	D3DXMATRIX reflection	= mReflection;
+
+	D3DXMatrixTranspose(&view, &view);
+	D3DXMatrixTranspose(&projection, &projection);
+	D3DXMatrixTranspose(&ortho, &ortho);
+	D3DXMatrixTranspose(&reflection, &reflection);
+
+	BufferData data;
+	
+	data.View				= view;
+	data.Projection			= projection;
+	data.Ortho				= ortho;
+	data.Reflection			= reflection;
+
+	SetConstantBuffer(D3D.GetContext(), mBuffer, &data, sizeof(BufferData), 1);
+}

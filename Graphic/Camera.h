@@ -10,7 +10,7 @@ public:
 	~Camera();
 	void			Initialize();
 	void			Update(FLOAT delta);
-	void			UpdateReflection();
+	void			UpdateReflection(FLOAT height);
 
 	// Get, Set 함수
 	D3DXVECTOR3		GetPosition();
@@ -29,12 +29,22 @@ public:
 	void			SetStrafeSpeed(FLOAT speed);
 	void			SetJumpSpeed(FLOAT speed);
 
+	// 사용하려나..
 	D3DXMATRIX		GetView();
 	D3DXMATRIX		GetProjection();
-	D3DXMATRIX		GetOrthoProjection();
+	D3DXMATRIX		GetOrtho();
 	D3DXMATRIX		GetReflection();
+	void			SetBuffer();
 
 private:
+	struct BufferData
+	{
+		D3DXMATRIX View;
+		D3DXMATRIX Projection;
+		D3DXMATRIX Ortho;
+		D3DXMATRIX Reflection;
+	};
+
 	D3DXVECTOR3		mPosition;
 	FLOAT			mPitch;				// x축 회전
 	FLOAT			mYaw;				// y축 회전
@@ -46,7 +56,7 @@ private:
 
 	D3DXMATRIX		mView;
 	D3DXMATRIX		mProjection;
-	D3DXMATRIX		mOrthoProjection;
+	D3DXMATRIX		mOrtho;
 	D3DXMATRIX		mReflection;
-
+	ID3D11Buffer*	mBuffer;
 };
