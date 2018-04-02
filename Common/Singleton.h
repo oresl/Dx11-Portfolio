@@ -25,3 +25,4 @@ void classname::Delete()\
 
 #define D3D GetInst(Direct3D)
 #define Input GetInst(DirectInput)
+#define RenderMgr GetInst(RenderManager)
