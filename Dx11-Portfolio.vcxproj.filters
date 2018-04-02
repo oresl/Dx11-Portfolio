@@ -28,14 +28,14 @@
     <Filter Include="GameSource\Unit">
       <UniqueIdentifier>{be4d1832-1553-4d12-8f51-1b97830c9533}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Graphic\Camera">
-      <UniqueIdentifier>{00ea7aee-4502-45fb-bf08-90a55f39c108}</UniqueIdentifier>
-    </Filter>
     <Filter Include="RenderResource">
       <UniqueIdentifier>{ed9fbfd2-533a-44a7-8c00-af49e8d1fb13}</UniqueIdentifier>
     </Filter>
     <Filter Include="GameSource\Buffer">
       <UniqueIdentifier>{0cd242bc-5d74-40cb-a19b-34619ce44d8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphic\Camera">
+      <UniqueIdentifier>{00ea7aee-4502-45fb-bf08-90a55f39c108}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -61,13 +61,13 @@
     <ClCompile Include="Graphic\Camera.cpp">
       <Filter>Graphic\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="RenderResource\VertexLayout.cpp">
-      <Filter>RenderResource</Filter>
-    </ClCompile>
     <ClCompile Include="GameSource\Cube.cpp">
       <Filter>GameSource\ETC</Filter>
     </ClCompile>
     <ClCompile Include="RenderResource\Shader.cpp">
+      <Filter>RenderResource</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderResource\InputLayout.cpp">
       <Filter>RenderResource</Filter>
     </ClCompile>
     <ClCompile Include="RenderResource\RenderManager.cpp">
@@ -108,13 +108,13 @@
     <ClInclude Include="Graphic\Camera.h">
       <Filter>Graphic\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="RenderResource\VertexLayout.h">
-      <Filter>RenderResource</Filter>
-    </ClInclude>
     <ClInclude Include="GameSource\Cube.h">
       <Filter>GameSource\ETC</Filter>
     </ClInclude>
     <ClInclude Include="RenderResource\Shader.h">
+      <Filter>RenderResource</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderResource\InputLayout.h">
       <Filter>RenderResource</Filter>
     </ClInclude>
     <ClInclude Include="RenderResource\RenderManager.h">
@@ -127,6 +127,9 @@
     </None>
     <None Include="GameSource\Cube.fx">
       <Filter>GameSource\ETC</Filter>
+    </None>
+    <None Include="RenderResource\Pcb.fx">
+      <Filter>RenderResource</Filter>
     </None>
   </ItemGroup>
 </Project>
