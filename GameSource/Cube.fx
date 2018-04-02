@@ -1,9 +1,4 @@
-cbuffer Camera : register(b0)
-{
-	matrix World;
-	matrix View;
-	matrix Projection;
-};
+#include "RenderResource\\Pcb.fx"
 
 struct VertexIn
 {
@@ -24,9 +19,9 @@ PixelIn VS(VertexIn input)
 	PixelIn output;
 
 	input.Pos.w = 1.0F;
-	output.Pos = mul(input.Pos, World);
-	output.Pos = mul(output.Pos, View);
-	output.Pos = mul(output.Pos, Projection);
+	output.Pos = mul(input.Pos, gWorld);
+	output.Pos = mul(output.Pos, gView);
+	output.Pos = mul(output.Pos, gProjection);
 
 	output.UV = input.UV;
 	output.Nor = input.Nor;

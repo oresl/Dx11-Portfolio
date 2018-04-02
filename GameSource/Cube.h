@@ -1,22 +1,21 @@
 #pragma once
 #include "..\Common\Pch.h"
-#include "..\RenderResource\VertexLayout.h"
+#include "..\Graphic\Direct3D.h"
+#include "..\RenderResource\InputLayout.h"
 
-class Cube : public VertexLayout
+class Cube : public InputLayout
 {
 public:
 	Cube();
 	~Cube();
 	void					Initialize();
+	void					SetBuffer();
 
 private:
-	UINT					mVertexCount;
-	UINT					mIndexCount;
-	vector<VL_PosTexNor>	mVertexData;
+	vector<IL_PosTexNor>	mVertexData;
 	vector<UINT>			mIndexData;
-	
 
-	virtual void InitializeData();
-	virtual void InitializeBuffer();
+	virtual void			InitializeData();
+	virtual void			InitializeBuffer();
 };
 
