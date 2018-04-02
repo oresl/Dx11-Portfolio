@@ -64,6 +64,7 @@ extern CF_LOG		gCFLog;
 
 using namespace func_math;
 using namespace func_dir;
+using namespace func_shader_buffer;
 
 #include "Singleton.h"
 #include "Log.h"
