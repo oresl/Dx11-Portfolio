@@ -59,6 +59,17 @@ namespace config
 		BOOL CompressedFormat;
 		UINT Anisotropy;
 	} CF_Texture;
+
+	typedef struct CONFIG_SKYPLANE
+	{
+		FLOAT	Width;
+		FLOAT	Top;
+		FLOAT	Bottom;
+		UINT	TextureRepeat;
+		UINT	Resolution;
+		FLOAT	Scale;
+		FLOAT	Brightness;
+	} CF_SkyPlane;
 }
 
 using namespace config;
@@ -66,6 +77,7 @@ using namespace config;
 extern CF_Engine	gCFEngine;
 extern CF_Log		gCFLog;
 extern CF_Texture	gCFTexture;
+extern CF_SkyPlane	gCFSkyPlane;
 
 // Custom 헤더
 #include "Func.h"
@@ -78,4 +90,22 @@ using namespace func_shader;
 #include "Log.h"
 
 using namespace log_write;
+
+// Shader registed Buffer num
+namespace shader_buffer
+{
+	typedef enum REGISTED_BUFFER_ENUM
+	{
+		RB_World = 0,
+		RB_Camera,
+		RB_Light,
+		RB_Material0,
+		RB_Material1,
+		RB_Custom = 11,
+		REGISTED_BUFFER_COUNT,
+	} RB_Type;
+}
+
+// 마테리얼 버퍼사용을 위해서
+using namespace shader_buffer;
 
