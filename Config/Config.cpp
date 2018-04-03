@@ -67,18 +67,42 @@ void Config::SetConfig(CS_Type type)
 	{
 		ZeroMemory(&gCFLog, sizeof(CF_Texture));
 
+		gCFTexture.CompressedFormat = GetValueBOOL(TEXTURE, L"CompressedFormat");
+
 		UINT mipmapMinLevel			= GetValueUINT(TEXTURE, L"MipmapMinLevel");
 		UINT anisotropy				= GetValueUINT(TEXTURE, L"Anisotropy");
 
 		gCFTexture.MipmapMinLevel	= Clamp(mipmapMinLevel, (UINT)1, (UINT)9);
 		gCFTexture.Anisotropy		= Clamp(anisotropy, (UINT)1, (UINT)16);
 
-		gCFTexture.CompressedFormat = GetValueBOOL(TEXTURE, L"CompressedFormat");
+		break;
 	}
 
 	case CS_Terrain: {break;}
+
 	case CS_SkySphere: {break;}
-	case CS_SkyPlane: {break;}
+
+	case CS_SkyPlane:
+	{
+		FLOAT width					= GetValueFLOAT(SKYPLANE, L"Width");
+		FLOAT top					= GetValueFLOAT(SKYPLANE, L"Top");
+		FLOAT bottom				= GetValueFLOAT(SKYPLANE, L"Bottom");
+		UINT textureRepeat			= GetValueUINT(SKYPLANE, L"TextureRepeat");
+		UINT resolution				= GetValueUINT(SKYPLANE, L"Resolution");
+		FLOAT scale					= GetValueFLOAT(SKYPLANE, L"Scale");
+		FLOAT brightness			= GetValueFLOAT(SKYPLANE, L"Brightness");
+
+		gCFSkyPlane.Width			= Clamp(width, 1.0F, 100.0F);
+		gCFSkyPlane.Top				= Clamp(top, 0.0F, 1.0F);
+		gCFSkyPlane.Bottom			= Clamp(bottom, -1.0F, 0.0F);
+		gCFSkyPlane.TextureRepeat	= Clamp(textureRepeat, (UINT)2, (UINT)8);
+		gCFSkyPlane.Resolution		= Clamp(resolution, (UINT)5, (UINT)100);
+		gCFSkyPlane.Scale			= Clamp(scale, 0.1F, 5.0F);
+		gCFSkyPlane.Brightness		= Clamp(brightness, 0.1F, 1.0F);
+
+		break;
+	}
+
 	case CS_Water: {break;}
 	}
 }
