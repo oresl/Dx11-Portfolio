@@ -13,6 +13,7 @@ private:
 	{
 		CS_Engine = 0,
 		CS_Log,
+		CS_Texture,
 		CS_Terrain,
 		CS_SkySphere,
 		CS_SkyPlane,
@@ -23,6 +24,7 @@ private:
 	// Section °ª
 	const WCHAR ENGINE[7]		= L"Engine";
 	const WCHAR LOG[4]			= L"Log";
+	const WCHAR TEXTURE[8]		= L"Texture";
 	const WCHAR TERRAIN[8]		= L"Terrain";
 	const WCHAR SKYSPHERE[10]	= L"SkySphere";
 	const WCHAR SKYPLANE[9]		= L"SkyPlane";

@@ -29,7 +29,7 @@ void Config::SetConfig(CS_Type type)
 	{
 	case CS_Engine:
 	{
-		ZeroMemory(&gCFEngine, sizeof(CF_ENGINE));
+		ZeroMemory(&gCFEngine, sizeof(CF_Engine));
 
 		gCFEngine.Name			= GetValueString(ENGINE, L"Name");
 		gCFEngine.Windowed		= GetValueBOOL(ENGINE, L"Windowed");
@@ -52,7 +52,7 @@ void Config::SetConfig(CS_Type type)
 
 	case CS_Log:
 	{
-		ZeroMemory(&gCFLog, sizeof(CF_LOG));
+		ZeroMemory(&gCFLog, sizeof(CF_Log));
 
 		UINT timestampType		= GetValueUINT(LOG, L"TimeStampType");
 		UINT level				= GetValueUINT(LOG, L"Level");
@@ -63,9 +63,23 @@ void Config::SetConfig(CS_Type type)
 		break;
 	}
 
-	case CS_Terrain:
-	{break;}
+	case CS_Texture:
+	{
+		ZeroMemory(&gCFLog, sizeof(CF_Texture));
 
+		UINT mipmapMinLevel			= GetValueUINT(TEXTURE, L"MipmapMinLevel");
+		UINT anisotropy				= GetValueUINT(TEXTURE, L"Anisotropy");
+
+		gCFTexture.MipmapMinLevel	= Clamp(mipmapMinLevel, (UINT)1, (UINT)9);
+		gCFTexture.Anisotropy		= Clamp(anisotropy, (UINT)1, (UINT)16);
+
+		gCFTexture.CompressedFormat = GetValueBOOL(TEXTURE, L"CompressedFormat");
+	}
+
+	case CS_Terrain: {break;}
+	case CS_SkySphere: {break;}
+	case CS_SkyPlane: {break;}
+	case CS_Water: {break;}
 	}
 }
 
