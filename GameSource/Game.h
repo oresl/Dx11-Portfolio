@@ -15,11 +15,12 @@ public:
 	void Render();
 
 private:
-	Camera* mCamera;
+	bool mWireFrame;
 
+	Camera* mCamera;
 	Cube* mCube;
 
+	void InitializeRenderManager();
 	void InitializeGameObject();
-	void InitializeShader();
 };
 
