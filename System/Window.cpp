@@ -13,8 +13,9 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
 }
 
 // public
-CF_ENGINE	gCFEngine;
-CF_LOG		gCFLog;
+CF_Engine	gCFEngine;
+CF_Log		gCFLog;
+CF_Texture	gCFTexture;
 
 Window::Window()
 {
