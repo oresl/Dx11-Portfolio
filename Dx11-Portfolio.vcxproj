@@ -157,13 +157,18 @@
     <ClCompile Include="Config\Config.cpp" />
     <ClCompile Include="GameSource\Cube.cpp" />
     <ClCompile Include="GameSource\Game.cpp" />
+    <ClCompile Include="GameSource\SkyPlane.cpp" />
+    <ClCompile Include="GameSource\SkySphere.cpp" />
     <ClCompile Include="Graphic\BlendState.cpp" />
-    <ClCompile Include="Graphic\Camera.cpp" />
     <ClCompile Include="Graphic\DepthStencilState.cpp" />
     <ClCompile Include="Graphic\Direct3D.cpp" />
     <ClCompile Include="Graphic\RasterizerState.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="RenderResource\Camera.cpp" />
+    <ClCompile Include="RenderResource\Frustum.cpp" />
     <ClCompile Include="RenderResource\InputLayout.cpp" />
+    <ClCompile Include="RenderResource\Light.cpp" />
+    <ClCompile Include="RenderResource\Material.cpp" />
     <ClCompile Include="RenderResource\RenderManager.cpp" />
     <ClCompile Include="RenderResource\Shader.cpp" />
     <ClCompile Include="System\DirectInput.cpp" />
@@ -178,12 +183,17 @@
     <ClInclude Include="Config\Config.h" />
     <ClInclude Include="GameSource\Cube.h" />
     <ClInclude Include="GameSource\Game.h" />
+    <ClInclude Include="GameSource\SkyPlane.h" />
+    <ClInclude Include="GameSource\SkySphere.h" />
     <ClInclude Include="Graphic\BlendState.h" />
-    <ClInclude Include="Graphic\Camera.h" />
     <ClInclude Include="Graphic\DepthStencilState.h" />
     <ClInclude Include="Graphic\Direct3D.h" />
     <ClInclude Include="Graphic\RasterizerState.h" />
+    <ClInclude Include="RenderResource\Camera.h" />
+    <ClInclude Include="RenderResource\Frustum.h" />
     <ClInclude Include="RenderResource\InputLayout.h" />
+    <ClInclude Include="RenderResource\Light.h" />
+    <ClInclude Include="RenderResource\Material.h" />
     <ClInclude Include="RenderResource\RenderManager.h" />
     <ClInclude Include="RenderResource\Shader.h" />
     <ClInclude Include="System\DirectInput.h" />
@@ -203,7 +213,25 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="RenderResource\Pcb.fx">
+    <None Include="RenderResource\Pcf.fx">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="GameSource\SkySphere.fx">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="GameSource\SkyPlane.fx">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
       <FileType>Document</FileType>
     </None>
   </ItemGroup>

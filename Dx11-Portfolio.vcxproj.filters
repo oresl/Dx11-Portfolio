@@ -34,11 +34,14 @@
     <Filter Include="GameSource\Buffer">
       <UniqueIdentifier>{0cd242bc-5d74-40cb-a19b-34619ce44d8c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Graphic\Camera">
-      <UniqueIdentifier>{00ea7aee-4502-45fb-bf08-90a55f39c108}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Graphic\RenderState">
       <UniqueIdentifier>{c0c78981-ca4a-4dd6-9c40-fc27a4f457e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RenderResource\Camera">
+      <UniqueIdentifier>{00ea7aee-4502-45fb-bf08-90a55f39c108}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RenderResource\Light">
+      <UniqueIdentifier>{62ae5d3d-ad7d-4e6e-a030-c4b7b37be303}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -61,9 +64,6 @@
     <ClCompile Include="System\Timer.cpp">
       <Filter>System</Filter>
     </ClCompile>
-    <ClCompile Include="Graphic\Camera.cpp">
-      <Filter>Graphic\Camera</Filter>
-    </ClCompile>
     <ClCompile Include="GameSource\Cube.cpp">
       <Filter>GameSource\ETC</Filter>
     </ClCompile>
@@ -84,6 +84,24 @@
     </ClCompile>
     <ClCompile Include="Graphic\DepthStencilState.cpp">
       <Filter>Graphic\RenderState</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSource\SkySphere.cpp">
+      <Filter>GameSource\Landscape</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderResource\Light.cpp">
+      <Filter>RenderResource\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderResource\Camera.cpp">
+      <Filter>RenderResource\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderResource\Frustum.cpp">
+      <Filter>RenderResource\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderResource\Material.cpp">
+      <Filter>RenderResource\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSource\SkyPlane.cpp">
+      <Filter>GameSource\Landscape</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -117,9 +135,6 @@
     <ClInclude Include="System\Timer.h">
       <Filter>System</Filter>
     </ClInclude>
-    <ClInclude Include="Graphic\Camera.h">
-      <Filter>Graphic\Camera</Filter>
-    </ClInclude>
     <ClInclude Include="GameSource\Cube.h">
       <Filter>GameSource\ETC</Filter>
     </ClInclude>
@@ -141,6 +156,24 @@
     <ClInclude Include="Graphic\DepthStencilState.h">
       <Filter>Graphic\RenderState</Filter>
     </ClInclude>
+    <ClInclude Include="GameSource\SkySphere.h">
+      <Filter>GameSource\Landscape</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderResource\Light.h">
+      <Filter>RenderResource\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderResource\Camera.h">
+      <Filter>RenderResource\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderResource\Frustum.h">
+      <Filter>RenderResource\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderResource\Material.h">
+      <Filter>RenderResource\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSource\SkyPlane.h">
+      <Filter>GameSource\Landscape</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Config\Config.ini">
@@ -149,8 +182,14 @@
     <None Include="GameSource\Cube.fx">
       <Filter>GameSource\ETC</Filter>
     </None>
-    <None Include="RenderResource\Pcb.fx">
+    <None Include="RenderResource\Pcf.fx">
       <Filter>RenderResource</Filter>
+    </None>
+    <None Include="GameSource\SkySphere.fx">
+      <Filter>GameSource\Landscape</Filter>
+    </None>
+    <None Include="GameSource\SkyPlane.fx">
+      <Filter>GameSource\Landscape</Filter>
     </None>
   </ItemGroup>
 </Project>
