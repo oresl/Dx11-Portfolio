@@ -72,10 +72,16 @@ UINT InputLayout::GetDrawCount()				{ return mDrawCount; }
 UINT InputLayout::GetInputLayoutSize()			{ return mInputLayoutSize; }
 UINT InputLayout::GetInputLayoutInstanceSize()	{ return mInputLayoutInstanceSize; }
 
+void InputLayout::SetPosition(FLOAT x, FLOAT y, FLOAT z)
+{
+	D3DXMatrixTranslation(&mWorld, x, y, z);
+}
+
 // protected
 InputLayout::InputLayout()
 {
 	D3DXMatrixIdentity(&mWorld);
+	mWorldBuffer				= NULL;
 	mInstanced					= false;
 	mTessellated				= false;
 	mVertexBuffer				= NULL;
@@ -87,10 +93,21 @@ InputLayout::InputLayout()
 	mDrawCount					= 0;
 	mInputLayoutSize			= 0;
 	mInputLayoutInstanceSize	= 0;
+
+	CreateBuffer
+	(
+		D3D.GetDevice(),
+		D3D11_BIND_CONSTANT_BUFFER,
+		sizeof(WorldBufferData),
+		D3D11_USAGE_DYNAMIC,
+		NULL,
+		&mWorldBuffer
+	);
 }
 
 InputLayout::~InputLayout()
 {
+	SafeReleaseCom(mWorldBuffer);
 	SafeReleaseCom(mInstanceBuffer);
 	SafeReleaseCom(mIndexBuffer);
 	SafeReleaseCom(mVertexBuffer);
@@ -127,4 +144,15 @@ void InputLayout::GetInputLayoutFromFile(wstring meshName)
 	}
 
 	file.close();
+}
+
+void InputLayout::SetWorldBuffer()
+{
+	D3DXMATRIX world = mWorld;
+	D3DXMatrixTranspose(&world, &world);
+
+	WorldBufferData data;
+	data.World = world;
+
+	SetConstantBuffer(D3D.GetContext(), mWorldBuffer, &data, sizeof(WorldBufferData), (UINT)RB_World);
 }

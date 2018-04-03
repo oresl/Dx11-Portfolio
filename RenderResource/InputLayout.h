@@ -85,9 +85,10 @@ public:
 	UINT					GetDrawCount();
 	UINT					GetInputLayoutSize();
 	UINT					GetInputLayoutInstanceSize();
+	void					SetPosition(FLOAT x, FLOAT y, FLOAT z);
 
 protected:
-	struct BufferData
+	struct WorldBufferData
 	{
 		D3DXMATRIX World;
 	};
@@ -109,7 +110,9 @@ protected:
 
 	InputLayout();
 	virtual ~InputLayout();
-	void					GetInputLayoutFromFile(wstring meshName);
 	virtual void			InitializeData() = 0;
+	virtual void			Update(FLOAT delta) = 0;
+	void					GetInputLayoutFromFile(wstring meshName);
+	void					SetWorldBuffer();
 	virtual void			SetBuffer() = 0;
 };
