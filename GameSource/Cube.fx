@@ -1,6 +1,6 @@
-#include "RenderResource\\Pcb.fx"
+#include "RenderResource\\Pcf.fx"
 
-Texture2D gTexture : register(t0);
+Texture2D mTexture : register(t0);
 
 struct VertexIn
 {
@@ -33,7 +33,7 @@ PixelIn VS(VertexIn input)
 
 float4 PS(PixelIn input) : SV_Target
 {
-	float4 color = gTexture.Sample(gSampler3, input.Tex);
+	float4 color = mTexture.Sample(gSampler0, input.Tex);
 
 	return color;
 }

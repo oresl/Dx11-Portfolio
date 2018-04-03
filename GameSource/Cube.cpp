@@ -23,16 +23,13 @@ void Cube::Initialize()
 	InitializeBuffer();
 }
 
+void Cube::Update(FLOAT delta)
+{
+}
+
 void Cube::SetBuffer()
 {
-	// World
-	D3DXMATRIX world = mWorld;
-	D3DXMatrixTranspose(&world, &world);
-
-	BufferData data;
-	data.World = world;
-
-	SetConstantBuffer(D3D.GetContext(), mWorldBuffer, &data, sizeof(BufferData), 0);
+	SetWorldBuffer();
 }
 
 // private
@@ -70,15 +67,5 @@ void Cube::InitializeBuffer()
 		D3D11_USAGE_IMMUTABLE,
 		&mIndexData[0],
 		&mIndexBuffer
-	);
-
-	CreateBuffer
-	(
-		D3D.GetDevice(),
-		D3D11_BIND_CONSTANT_BUFFER,
-		sizeof(BufferData),
-		D3D11_USAGE_DYNAMIC,
-		NULL,
-		&mWorldBuffer
 	);
 }
