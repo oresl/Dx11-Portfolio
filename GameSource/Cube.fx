@@ -1,16 +1,18 @@
 #include "RenderResource\\Pcb.fx"
 
+Texture2D gTexture : register(t0);
+
 struct VertexIn
 {
 	float4 Pos	: POSITION;
-	float2 UV	: TEXCOORD;
+	float2 Tex	: TEXCOORD;
 	float3 Nor	: NORMAL;
 };
 
 struct PixelIn
 {
 	float4 Pos	: SV_POSITION;
-	float2 UV	: TEXCOORD;
+	float2 Tex	: TEXCOORD;
 	float3 Nor	: NORMAL;
 };
 
@@ -23,7 +25,7 @@ PixelIn VS(VertexIn input)
 	output.Pos = mul(output.Pos, gView);
 	output.Pos = mul(output.Pos, gProjection);
 
-	output.UV = input.UV;
+	output.Tex = input.Tex;
 	output.Nor = input.Nor;
 
 	return output;
@@ -31,5 +33,7 @@ PixelIn VS(VertexIn input)
 
 float4 PS(PixelIn input) : SV_Target
 {
-	return float4(1.0F, 1.0F, 1.0F, 1.0F);
+	float4 color = gTexture.Sample(gSampler3, input.Tex);
+
+	return color;
 }
