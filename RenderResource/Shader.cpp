@@ -48,12 +48,11 @@ void Shader::SetShader()
 	D3D.GetContext()->VSSetShader(mVS, NULL, 0);
 	D3D.GetContext()->PSSetShader(mPS, NULL, 0);
 
-	//if (mTessellated)
-	//{
-	//	D3D.GetContext()->HSSetShader(mHS, NULL, 0);
-	//	D3D.GetContext()->DSSetShader(mDS, NULL, 0);
-	//}
-
+	if (mTessellated)
+	{
+		D3D.GetContext()->HSSetShader(mHS, NULL, 0);
+		D3D.GetContext()->DSSetShader(mDS, NULL, 0);
+	}
 }
 
 // private
