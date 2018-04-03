@@ -37,6 +37,9 @@
     <Filter Include="Graphic\Camera">
       <UniqueIdentifier>{00ea7aee-4502-45fb-bf08-90a55f39c108}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Graphic\RenderState">
+      <UniqueIdentifier>{c0c78981-ca4a-4dd6-9c40-fc27a4f457e2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
@@ -72,6 +75,15 @@
     </ClCompile>
     <ClCompile Include="RenderResource\RenderManager.cpp">
       <Filter>RenderResource</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphic\RasterizerState.cpp">
+      <Filter>Graphic\RenderState</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphic\BlendState.cpp">
+      <Filter>Graphic\RenderState</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphic\DepthStencilState.cpp">
+      <Filter>Graphic\RenderState</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -119,6 +131,15 @@
     </ClInclude>
     <ClInclude Include="RenderResource\RenderManager.h">
       <Filter>RenderResource</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic\RasterizerState.h">
+      <Filter>Graphic\RenderState</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic\BlendState.h">
+      <Filter>Graphic\RenderState</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic\DepthStencilState.h">
+      <Filter>Graphic\RenderState</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

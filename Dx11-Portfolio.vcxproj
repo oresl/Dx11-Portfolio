@@ -157,8 +157,11 @@
     <ClCompile Include="Config\Config.cpp" />
     <ClCompile Include="GameSource\Cube.cpp" />
     <ClCompile Include="GameSource\Game.cpp" />
+    <ClCompile Include="Graphic\BlendState.cpp" />
     <ClCompile Include="Graphic\Camera.cpp" />
+    <ClCompile Include="Graphic\DepthStencilState.cpp" />
     <ClCompile Include="Graphic\Direct3D.cpp" />
+    <ClCompile Include="Graphic\RasterizerState.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="RenderResource\InputLayout.cpp" />
     <ClCompile Include="RenderResource\RenderManager.cpp" />
@@ -175,8 +178,11 @@
     <ClInclude Include="Config\Config.h" />
     <ClInclude Include="GameSource\Cube.h" />
     <ClInclude Include="GameSource\Game.h" />
+    <ClInclude Include="Graphic\BlendState.h" />
     <ClInclude Include="Graphic\Camera.h" />
+    <ClInclude Include="Graphic\DepthStencilState.h" />
     <ClInclude Include="Graphic\Direct3D.h" />
+    <ClInclude Include="Graphic\RasterizerState.h" />
     <ClInclude Include="RenderResource\InputLayout.h" />
     <ClInclude Include="RenderResource\RenderManager.h" />
     <ClInclude Include="RenderResource\Shader.h" />
