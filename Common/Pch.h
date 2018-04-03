@@ -45,26 +45,34 @@ namespace config
 		FLOAT		ScreenNear;
 		FLOAT		ScreenDepth;
 		FLOAT		CameraSpeed;
-	} CF_ENGINE;
+	} CF_Engine;
 
 	typedef struct CONFIG_LOG
 	{
 		UINT TimeStampType;
 		UINT Level;
-	} CF_LOG;
+	} CF_Log;
+
+	typedef struct CONFIG_TEXTURE
+	{
+		UINT MipmapMinLevel;
+		BOOL CompressedFormat;
+		UINT Anisotropy;
+	} CF_Texture;
 }
 
 using namespace config;
 
-extern CF_ENGINE	gCFEngine;
-extern CF_LOG		gCFLog;
+extern CF_Engine	gCFEngine;
+extern CF_Log		gCFLog;
+extern CF_Texture	gCFTexture;
 
 // Custom Çì´õ
 #include "Func.h"
 
 using namespace func_math;
 using namespace func_dir;
-using namespace func_shader_buffer;
+using namespace func_shader;
 
 #include "Singleton.h"
 #include "Log.h"
