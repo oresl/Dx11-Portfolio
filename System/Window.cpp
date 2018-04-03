@@ -16,6 +16,7 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
 CF_Engine	gCFEngine;
 CF_Log		gCFLog;
 CF_Texture	gCFTexture;
+CF_SkyPlane gCFSkyPlane;
 
 Window::Window()
 {
