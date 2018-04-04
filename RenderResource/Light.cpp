@@ -66,7 +66,7 @@ void Light::SetBuffer()
 	BufferData data;
 	data.View		= view;
 	data.Projection	= projection;
-	data.Direction	= mDirection;
+	data.Direction	= D3DXVECTOR3(0.01F, -1.0F, 0.01F);
 	data.Position	= mPosition;
 	data.Pad		= D3DXVECTOR2(1.0F, 1.0F);
 
