@@ -43,6 +43,16 @@ void Camera::Initialize()
 		gCFEngine.ScreenDepth
 	);
 
+	// Frustum용 프로젝션 행렬
+	D3DXMatrixPerspectiveFovLH
+	(
+		&mFrustumProj,
+		fovy,
+		aspect,
+		gCFEngine.ScreenNear,
+		gCFEngine.FrustumDepth
+	);
+
 	// 버퍼 생성
 	CreateBuffer(D3D.GetDevice(), D3D11_BIND_CONSTANT_BUFFER, sizeof(BufferData), D3D11_USAGE_DYNAMIC, NULL, &mBuffer);
 }
@@ -141,6 +151,8 @@ void Camera::SetBuffer()
 	data.Projection			= projection;
 	data.Ortho				= ortho;
 	data.Reflection			= reflection;
+	data.CameraPosition		= mPosition;
+	data.Pad				= 1.0F;
 
 	SetConstantBuffer(D3D.GetContext(), mBuffer, &data, sizeof(BufferData), (UINT)RB_Camera);
 }
@@ -165,3 +177,4 @@ D3DXMATRIX Camera::GetView()						{ return mView; }
 D3DXMATRIX Camera::GetProjection()					{ return mProjection; }
 D3DXMATRIX Camera::GetOrtho()						{ return mOrtho; }
 D3DXMATRIX Camera::GetReflection()					{ return mReflection; }
+D3DXMATRIX Camera::GetFrustumProj()					{ return mFrustumProj; }

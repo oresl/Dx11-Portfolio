@@ -30,19 +30,21 @@ public:
 	void			SetStrafeSpeed(FLOAT speed);
 	void			SetJumpSpeed(FLOAT speed);
 
-	// 사용하려나..
 	D3DXMATRIX		GetView();
 	D3DXMATRIX		GetProjection();
 	D3DXMATRIX		GetOrtho();
 	D3DXMATRIX		GetReflection();
+	D3DXMATRIX		GetFrustumProj();
 
 private:
 	struct BufferData
 	{
-		D3DXMATRIX View;
-		D3DXMATRIX Projection;
-		D3DXMATRIX Ortho;
-		D3DXMATRIX Reflection;
+		D3DXMATRIX	View;
+		D3DXMATRIX	Projection;
+		D3DXMATRIX	Ortho;
+		D3DXMATRIX	Reflection;
+		D3DXVECTOR3 CameraPosition;
+		FLOAT		Pad;
 	};
 
 	D3DXVECTOR3		mPosition;
@@ -58,5 +60,6 @@ private:
 	D3DXMATRIX		mProjection;
 	D3DXMATRIX		mOrtho;
 	D3DXMATRIX		mReflection;
+	D3DXMATRIX		mFrustumProj;		// Frustum을 위한 좀더 짧은 Depth의 Projection
 	ID3D11Buffer*	mBuffer;
 };
