@@ -3,15 +3,31 @@
 // public
 Game::Game()
 {
-	mWireFrame	= false;
-
-	mCamera		= NULL;
-	mCube		= NULL;
+	mWireFrame		= false;
+	mRenderManager	= NULL;
+	mCamera			= NULL;
+	mFrustum		= NULL;
+	mLight			= NULL;
+	mMaterial0		= NULL;
+	mMaterial1		= NULL;
+	mCube			= NULL;
+	mSphere			= NULL;
+	mSkySphere		= NULL;
+	mSkyPlane		= NULL;
 }
 
 Game::~Game()
 {
+	SafeDeletePtr(mSkyPlane);
+	SafeDeletePtr(mSkySphere);
+	SafeDeletePtr(mSphere);
+	SafeDeletePtr(mCube);
+	SafeDeletePtr(mMaterial1);
+	SafeDeletePtr(mMaterial0);
+	SafeDeletePtr(mLight);
+	SafeDeletePtr(mFrustum);
 	SafeDeletePtr(mCamera);
+	SafeDeletePtr(mRenderManager);
 }
 
 void Game::Initialize()
@@ -43,46 +59,60 @@ void Game::Render()
 	D3DXVECTOR3 camPos = mCamera->GetPosition();
 
 	// SkySphere
-	RenderMgr.SetRasterizerState(RS_CullNone);
-	RenderMgr.SetDepthStencilState(DS_DepthDisable);
-	RenderMgr.SetShader(L"SkySphere");
-	mSkySphere->SetPosition(camPos.x, camPos.y, camPos.z);
-	mSkySphere->SetBuffer();
-	RenderMgr.SetIAParameter(mSkySphere);
+	{
+		mRenderManager->SetRasterizerState(RS_CullNone);
+		mRenderManager->SetDepthStencilState(DS_DepthDisable);
+
+		mRenderManager->SetShader(L"SkySphere");
+		mSkySphere->SetPosition(camPos.x, camPos.y, camPos.z);
+		mSkySphere->SetBuffer();
+		mRenderManager->SetIAParameterAndDraw(mSkySphere);
+	}
 
 	// SkyPlane
-	RenderMgr.SetRasterizerState(RS_CullBack);
-	RenderMgr.SetBlendState(BS_SkyPlane);
-	RenderMgr.SetShader(L"SkyPlane");
-	mSkyPlane->SetPosition(camPos.x, camPos.y, camPos.z);
-	mSkyPlane->SetBuffer();
-	RenderMgr.SetTexture(L"Cloud", 0);
-	RenderMgr.SetTexture(L"Noise", 1);
-	RenderMgr.SetIAParameter(mSkyPlane);
-	RenderMgr.SetBlendState(BS_Default);
-	RenderMgr.SetDepthStencilState(DS_Default);
+	{
+		mRenderManager->SetRasterizerState(RS_CullBack);
+		mRenderManager->SetBlendState(BS_SkyPlane);
 
-	// Cube0
-	RenderMgr.SetShader(L"Cube");
-	RenderMgr.SetRasterizerState(mWireFrame ? RS_WireFrame_CullBack : RS_CullBack);
-	mCube->SetBuffer();
-	RenderMgr.SetTexture(L"Trapezoid", 0);
-	RenderMgr.SetIAParameter(mCube);
+		mRenderManager->SetShader(L"SkyPlane");
+		mSkyPlane->SetPosition(camPos.x, camPos.y, camPos.z);
+		mSkyPlane->SetBuffer();
+		mRenderManager->SetTexture(L"Cloud", 0);
+		mRenderManager->SetTexture(L"Noise", 1);
+		mRenderManager->SetIAParameterAndDraw(mSkyPlane);
+	}
+	
+	mRenderManager->SetBlendState(BS_Default);
+	mRenderManager->SetDepthStencilState(DS_Default);
+
+	// Rain
+	{
+		mRenderManager->SetRasterizerState(mWireFrame ? RS_WireFrame_CullBack : RS_CullBack);
+
+		mRenderManager->SetShader(L"Rain");
+		mRain->SetBuffer();
+		mRenderManager->SetIAParameterAndDraw(mRain);
+	}
+
+	// Cube (Material0)
+	{
+		mRenderManager->SetShader(L"Cube");
+		mCube->SetBuffer();
+		mRenderManager->SetTexture(L"Trapezoid", 0);
+		mRenderManager->SetIAParameterAndDraw(mCube);
+	}
+
+	// Sphere (Material1)
+	{
+		mRenderManager->SetShader(L"Sphere");
+		mSphere->SetPosition(5.0F, 0.0F, 0.0F);
+		mSphere->SetBuffer();
+		mRenderManager->SetTexture(L"Earth", 0);
+		mRenderManager->SetIAParameterAndDraw(mSphere);
+	}
 }
 
 // private
-void Game::InitializeGameObject()
-{
-	mCube = new Cube;
-	mCube->Initialize();
-	
-	mSkySphere = new SkySphere;
-	mSkySphere->Initialize();
-
-	mSkyPlane = new SkyPlane;
-	mSkyPlane->Initialize();
-}
-
 void Game::InitializeRenderResource()
 {
 	// Camera, Frustum
@@ -122,21 +152,38 @@ void Game::InitializeRenderResource()
 	mMaterial1->SetMaterial(ambient, diffuse, specular, specularPower);
 
 	// Shader, Texture
-	RenderMgr.Initialize();
+	mRenderManager = new RenderManager;
+	mRenderManager->Initialize();
 
-	RenderMgr.AddShader(L"Cube", IL_PosTexNor::sElementDesc, IL_PosTexNor::sElementCount, false);
-	RenderMgr.AddShader(L"SkySphere", IL_Pos::sElementDesc, IL_Pos::sElementCount, false);
-	RenderMgr.AddShader(L"SkyPlane", IL_PosTex::sElementDesc, IL_PosTex::sElementCount, false);
+	mRenderManager->AddShader(L"Cube", IL_PosTexNor::sElementDesc, IL_PosTexNor::sElementCount, false);		// Material 0
+	mRenderManager->AddShader(L"Sphere", IL_PosTexNor::sElementDesc, IL_PosTexNor::sElementCount, false);	// Material 1
+	mRenderManager->AddShader(L"SkySphere", IL_Pos::sElementDesc, IL_Pos::sElementCount, false);
+	mRenderManager->AddShader(L"SkyPlane", IL_PosTex::sElementDesc, IL_PosTex::sElementCount, false);
+	mRenderManager->AddShader(L"Rain", IL_Instance::sElementDesc, IL_Instance::sElementCount, false);
 
-	RenderMgr.AddTexture(L"Test", TE_GIF);
-	RenderMgr.AddTexture(L"Trapezoid", TE_JPG);
-	RenderMgr.AddTexture(L"Cloud", TE_DDS);
-	RenderMgr.AddTexture(L"Noise", TE_DDS);
+	mRenderManager->AddTexture(L"Test", TE_GIF);
+	mRenderManager->AddTexture(L"Trapezoid", TE_JPG);
+	mRenderManager->AddTexture(L"Earth", TE_PNG);
+	mRenderManager->AddTexture(L"Cloud", TE_DDS);
+	mRenderManager->AddTexture(L"Noise", TE_DDS);
 }
 
-void Game::UpdateGameObject(FLOAT delta)
+void Game::InitializeGameObject()
 {
-	mSkyPlane->Update(delta);
+	mCube = new Cube;
+	mCube->Initialize();
+	
+	mSphere = new Sphere;
+	mSphere->Initialize();
+
+	mSkySphere = new SkySphere;
+	mSkySphere->Initialize();
+
+	mSkyPlane = new SkyPlane;
+	mSkyPlane->Initialize();
+
+	mRain = new Rain;
+	mRain->Initialize();
 }
 
 void Game::UpdateRenderResource(FLOAT delta)
@@ -147,9 +194,9 @@ void Game::UpdateRenderResource(FLOAT delta)
 	mCamera->SetBuffer();
 
 	D3DXMATRIX view			= mCamera->GetView();
-	D3DXMATRIX projection	= mCamera->GetProjection();
+	D3DXMATRIX frustumProj	= mCamera->GetFrustumProj();
 	D3DXMATRIX viewProj;
-	D3DXMatrixMultiply(&viewProj, &view, &projection);
+	D3DXMatrixMultiply(&viewProj, &view, &frustumProj);
 	mFrustum->SetFrustum(viewProj);
 
 	// Light, Material
@@ -159,3 +206,10 @@ void Game::UpdateRenderResource(FLOAT delta)
 	mMaterial0->SetBuffer(RB_Material0);
 	mMaterial1->SetBuffer(RB_Material1);
 }
+
+void Game::UpdateGameObject(FLOAT delta)
+{
+	mSkyPlane->Update(delta);
+	mRain->Update(delta, mCamera, mFrustum);
+}
+

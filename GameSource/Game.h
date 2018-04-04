@@ -7,36 +7,43 @@
 #include "..\RenderResource\RenderManager.h"
 
 #include "Cube.h"
+#include "Sphere.h"
+
 #include "SkySphere.h"
 #include "SkyPlane.h"
+#include "Rain.h"
 
 class Game
 {
 public:
 	Game();
 	~Game();
-	void		Initialize();
-	void		Update(FLOAT delta);
-	void		PreRender();
-	void		Render();
+	void			Initialize();
+	void			Update(FLOAT delta);
+	void			PreRender();
+	void			Render();
 
 private:
-	bool		mWireFrame;
+	bool			mWireFrame;
 	
-	Camera*		mCamera;
-	Frustum*	mFrustum;
-	Light*		mLight;
-	Material*	mMaterial0;
-	Material*	mMaterial1;
+	RenderManager*	mRenderManager;
+	Camera*			mCamera;
+	Frustum*		mFrustum;
+	Light*			mLight;
+	Material*		mMaterial0;
+	Material*		mMaterial1;
 
-	Cube*		mCube;
-	SkySphere*	mSkySphere;
-	SkyPlane*	mSkyPlane;
+	Cube*			mCube;		// Material0
+	Sphere*			mSphere;	// Material1
 
-	void		InitializeRenderResource();
-	void		InitializeGameObject();
-	void		UpdateRenderResource(FLOAT delta);
-	void		UpdateGameObject(FLOAT delta);
+	SkySphere*		mSkySphere;
+	SkyPlane*		mSkyPlane;
+	Rain*			mRain;
+
+	void			InitializeRenderResource();
+	void			InitializeGameObject();
+	void			UpdateRenderResource(FLOAT delta);
+	void			UpdateGameObject(FLOAT delta);
 
 };
 
