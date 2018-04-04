@@ -23,10 +23,6 @@ void Cube::Initialize()
 	InitializeBuffer();
 }
 
-void Cube::Update(FLOAT delta)
-{
-}
-
 void Cube::SetBuffer()
 {
 	SetWorldBuffer();

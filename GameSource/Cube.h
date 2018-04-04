@@ -9,7 +9,6 @@ public:
 	Cube();
 	~Cube();
 	void					Initialize();
-	virtual void			Update(FLOAT delta);
 	void					SetBuffer();
 
 private:
