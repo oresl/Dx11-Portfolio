@@ -5,10 +5,12 @@ cbuffer WorldBuffer		: register(b0)
 
 cbuffer CameraBuffer	: register(b1)
 {
-	matrix gView;
-	matrix gProjection;
-	matrix gOrtho;
-	matrix gReflection;
+	matrix gCameraView;
+	matrix gCameraProjection;
+	matrix gCameraOrtho;
+	matrix gCameraReflection;
+	float3 gCameraPosition;
+	float  gCameraPad;
 };
 
 cbuffer LightBuffer		: register(b2)
@@ -23,8 +25,8 @@ cbuffer LightBuffer		: register(b2)
 // Material
 cbuffer MaterialBuffer0 : register(b3)
 {
-	float4 gDiffuse0;
 	float4 gAmbient0;
+	float4 gDiffuse0;
 	float4 gSpecular0;
 	float  gSpecularPower0;
 	float3 gMaterialPad0;
@@ -32,8 +34,8 @@ cbuffer MaterialBuffer0 : register(b3)
 
 cbuffer MaterialBuffer1 : register(b4)
 {
-	float4 gDiffuse1;
 	float4 gAmbient1;
+	float4 gDiffuse1;
 	float4 gSpecular1;
 	float  gSpecularPower1;
 	float3 gMaterialPad1;
