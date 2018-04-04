@@ -111,7 +111,7 @@ protected:
 	InputLayout();
 	virtual ~InputLayout();
 	virtual void			InitializeData() = 0;
-	virtual void			Update(FLOAT delta) = 0;
+	virtual void			InitializeBuffer() = 0;
 	void					GetInputLayoutFromFile(wstring meshName);
 	void					SetWorldBuffer();
 	virtual void			SetBuffer() = 0;
