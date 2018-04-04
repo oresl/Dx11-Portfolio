@@ -31,9 +31,6 @@
     <Filter Include="RenderResource">
       <UniqueIdentifier>{ed9fbfd2-533a-44a7-8c00-af49e8d1fb13}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameSource\Buffer">
-      <UniqueIdentifier>{0cd242bc-5d74-40cb-a19b-34619ce44d8c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Graphic\RenderState">
       <UniqueIdentifier>{c0c78981-ca4a-4dd6-9c40-fc27a4f457e2}</UniqueIdentifier>
     </Filter>
@@ -101,6 +98,12 @@
       <Filter>RenderResource\Light</Filter>
     </ClCompile>
     <ClCompile Include="GameSource\SkyPlane.cpp">
+      <Filter>GameSource\Landscape</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSource\Sphere.cpp">
+      <Filter>GameSource\ETC</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSource\Rain.cpp">
       <Filter>GameSource\Landscape</Filter>
     </ClCompile>
   </ItemGroup>
@@ -174,6 +177,12 @@
     <ClInclude Include="GameSource\SkyPlane.h">
       <Filter>GameSource\Landscape</Filter>
     </ClInclude>
+    <ClInclude Include="GameSource\Sphere.h">
+      <Filter>GameSource\ETC</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSource\Rain.h">
+      <Filter>GameSource\Landscape</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Config\Config.ini">
@@ -189,6 +198,12 @@
       <Filter>GameSource\Landscape</Filter>
     </None>
     <None Include="GameSource\SkyPlane.fx">
+      <Filter>GameSource\Landscape</Filter>
+    </None>
+    <None Include="GameSource\Sphere.fx">
+      <Filter>GameSource\ETC</Filter>
+    </None>
+    <None Include="GameSource\Rain.fx">
       <Filter>GameSource\Landscape</Filter>
     </None>
   </ItemGroup>
