@@ -40,12 +40,14 @@ void Config::SetConfig(CS_Type type)
 		FLOAT screenNear		= GetValueFLOAT(ENGINE, L"ScreenNear");
 		FLOAT screenDepth		= GetValueFLOAT(ENGINE, L"ScreenDepth");
 		FLOAT cameraSpeed		= GetValueFLOAT(ENGINE, L"CameraSpeed");
+		FLOAT frustumDepth		= GetValueFLOAT(ENGINE, L"FrustumDepth");
 
 		gCFEngine.ScreenX		= Clamp(screenX, (UINT)500, (UINT)GetSystemMetrics(SM_CXSCREEN));
 		gCFEngine.ScreenY		= Clamp(screenY, (UINT)500, (UINT)GetSystemMetrics(SM_CYSCREEN));
 		gCFEngine.ScreenNear	= Clamp(screenNear, 0.1F, 1.0F);
 		gCFEngine.ScreenDepth	= Clamp(screenDepth, 100.0F, 1000.0F);
 		gCFEngine.CameraSpeed	= Clamp(cameraSpeed, 10.0F, 100.0F);
+		gCFEngine.FrustumDepth	= Clamp(frustumDepth, 10.0F, 100.0F);
 
 		break;
 	}
@@ -78,9 +80,27 @@ void Config::SetConfig(CS_Type type)
 		break;
 	}
 
-	case CS_Terrain: {break;}
+	case CS_Terrain:
+	{
+		gCFTerrain;
+		break;
+	}
 
-	case CS_SkySphere: {break;}
+	case CS_Rain:
+	{
+		UINT count			= GetValueUINT(RAIN, L"Count");
+		FLOAT speed			= GetValueFLOAT(RAIN, L"Speed");
+		FLOAT startPosY		= GetValueFLOAT(RAIN, L"StartPosY");
+		FLOAT endPosY		= GetValueFLOAT(RAIN, L"EndPosY");
+
+		gCFRain.Count		= Clamp(count, (UINT)100, (UINT)20000);
+		gCFRain.Speed		= Clamp(speed, 5.0F, 100.0F);
+		gCFRain.StartPosY	= Clamp(startPosY, 20.0F, 100.0F);
+		gCFRain.EndPosY		= Clamp(endPosY, -5.0F, 0.0F);
+		break;
+	}
+
+	//case CS_SkySphere: { break; }
 
 	case CS_SkyPlane:
 	{
@@ -91,6 +111,7 @@ void Config::SetConfig(CS_Type type)
 		UINT resolution				= GetValueUINT(SKYPLANE, L"Resolution");
 		FLOAT scale					= GetValueFLOAT(SKYPLANE, L"Scale");
 		FLOAT brightness			= GetValueFLOAT(SKYPLANE, L"Brightness");
+		FLOAT speed					= GetValueFLOAT(SKYPLANE, L"Speed");
 
 		gCFSkyPlane.Width			= Clamp(width, 1.0F, 100.0F);
 		gCFSkyPlane.Top				= Clamp(top, 0.0F, 1.0F);
@@ -99,11 +120,16 @@ void Config::SetConfig(CS_Type type)
 		gCFSkyPlane.Resolution		= Clamp(resolution, (UINT)5, (UINT)100);
 		gCFSkyPlane.Scale			= Clamp(scale, 0.1F, 5.0F);
 		gCFSkyPlane.Brightness		= Clamp(brightness, 0.1F, 1.0F);
+		gCFSkyPlane.Speed			= Clamp(speed, 0.01F, 0.1F);
 
 		break;
 	}
 
-	case CS_Water: {break;}
+	case CS_Water:
+	{
+		gCFWater;
+		break;
+	}
 	}
 }
 
