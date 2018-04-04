@@ -12,7 +12,7 @@ public:
 	bool CheckShpere(D3DXVECTOR3 position, FLOAT radius);
 
 private:
-	D3DXPLANE mPlane[3];
+	D3DXPLANE mPlane[6];
 	//D3DXPLANE Right;
 	//D3DXPLANE Left;
 	//D3DXPLANE Top;
