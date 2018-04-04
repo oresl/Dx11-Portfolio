@@ -1,8 +1,5 @@
 #include "RenderManager.h"
 
-// static
-Singleton_cpp(RenderManager)
-
 // public
 RenderManager::RenderManager()
 {
@@ -130,11 +127,6 @@ void RenderManager::SetTexture(wstring textureName, UINT startSlot)
 	D3D.GetContext()->PSSetShaderResources(startSlot, 1, &texture->second);
 }
 
-void RenderManager::SetRasterizerState(RS_Type type)
-{
-	mRasterizerState->SetState(type);
-}
-
 void RenderManager::SetTextureArray(wstring arrayName, UINT startSlot)
 {
 	auto textureArray = mTextureArrayList.find(arrayName);
@@ -151,6 +143,11 @@ void RenderManager::SetTextureArray(wstring arrayName, UINT startSlot)
 	D3D.GetContext()->PSSetShaderResources(startSlot, 1, &textureArray->second);
 }
 
+void RenderManager::SetRasterizerState(RS_Type type)
+{
+	mRasterizerState->SetState(type);
+}
+
 void RenderManager::SetBlendState(BS_Type type)
 {
 	mBlendState->SetState(type);
@@ -161,7 +158,7 @@ void RenderManager::SetDepthStencilState(DS_Type type)
 	mDepthStencilState->SetState(type);
 }
 
-void RenderManager::SetIAParameter(InputLayout* object)
+void RenderManager::SetIAParameterAndDraw(InputLayout* object)
 {
 	// 테셀레이션 확인
 	D3D_PRIMITIVE_TOPOLOGY topology;

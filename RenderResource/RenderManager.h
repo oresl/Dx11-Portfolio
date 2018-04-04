@@ -32,9 +32,7 @@ public:
 	void SetRasterizerState(RS_Type type);
 	void SetBlendState(BS_Type type);
 	void SetDepthStencilState(DS_Type type);
-	void SetIAParameter(InputLayout* object);
-
-	Singleton_h(RenderManager)
+	void SetIAParameterAndDraw(InputLayout* object);
 
 private:
 	map<wstring, Shader*>					mShaderList;
