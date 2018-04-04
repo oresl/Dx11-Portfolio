@@ -28,7 +28,7 @@ void SkyPlane::Initialize()
 
 void SkyPlane::Update(FLOAT delta)
 {
-	mTranslation += delta * 0.01F;
+	mTranslation += delta * gCFSkyPlane.Speed;
 	if (mTranslation > 1.0F)
 		mTranslation -= 1.0F;
 }

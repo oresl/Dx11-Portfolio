@@ -33,8 +33,8 @@ PixelIn VS(VertexIn input)
 	output.PosVertex = input.Pos.xyz;
 
 	output.Pos = mul(input.Pos, gWorld);
-	output.Pos = mul(output.Pos, gView);
-	output.Pos = mul(output.Pos, gProjection);
+	output.Pos = mul(output.Pos, gCameraView);
+	output.Pos = mul(output.Pos, gCameraProjection);
 
 	output.Tex = input.Tex;
 
