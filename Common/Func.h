@@ -91,6 +91,17 @@ namespace func_shader
 		context->PSSetConstantBuffers(startSlot, 1, &buffer);
 	}
 
+	static void UpdateVertexBuffer(ID3D11DeviceContext* context, ID3D11Buffer* buffer, const void* data, UINT dataSize)
+	{
+		D3D11_MAPPED_SUBRESOURCE mapped;
+		HRESULT hr = context->Map(buffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mapped);
+		assert(SUCCEEDED(hr));
+
+		memcpy(mapped.pData, data, (size_t)dataSize);
+
+		context->Unmap(buffer, 0);
+	}
+
 	// Texture
 	static void LoadImageInfo(D3DX11_IMAGE_LOAD_INFO* loadInfo, bool grayscaled, bool textureArray)
 	{
