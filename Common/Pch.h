@@ -45,6 +45,7 @@ namespace config
 		FLOAT		ScreenNear;
 		FLOAT		ScreenDepth;
 		FLOAT		CameraSpeed;
+		FLOAT		FrustumDepth;
 	} CF_Engine;
 
 	typedef struct CONFIG_LOG
@@ -60,6 +61,19 @@ namespace config
 		UINT Anisotropy;
 	} CF_Texture;
 
+	typedef struct CONFIG_TERRAIN
+	{
+
+	} CF_Terrain;
+
+	typedef struct CONFIG_RAIN
+	{
+		UINT	Count;
+		FLOAT	Speed;
+		FLOAT	StartPosY;
+		FLOAT	EndPosY;
+	} CF_Rain;
+
 	typedef struct CONFIG_SKYPLANE
 	{
 		FLOAT	Width;
@@ -69,7 +83,13 @@ namespace config
 		UINT	Resolution;
 		FLOAT	Scale;
 		FLOAT	Brightness;
+		FLOAT	Speed;
 	} CF_SkyPlane;
+
+	typedef struct CONFIG_WATER
+	{
+
+	} CF_Water;
 }
 
 using namespace config;
@@ -77,7 +97,10 @@ using namespace config;
 extern CF_Engine	gCFEngine;
 extern CF_Log		gCFLog;
 extern CF_Texture	gCFTexture;
+extern CF_Terrain	gCFTerrain;
+extern CF_Rain		gCFRain;
 extern CF_SkyPlane	gCFSkyPlane;
+extern CF_Water		gCFWater;
 
 // Custom Çì´õ
 #include "Func.h"
