@@ -52,14 +52,14 @@ float4 PS(PixelIn input) : SV_Target
 
 	// Scale과 이동값을 적용
 	float4 noise;
-	noise		= mNoise.Sample(gSampler0, input.Tex);
+	noise		= mNoise.Sample(gSSWrap, input.Tex);
 	noise		= noise * Scale;
 	noise.xy	= noise.xy + input.Tex.xy + Translation;
 
 	// 밝기 곱하기
 	// 빛의 방향에 따라서 구름의 가시 결정
 	float4 color;
-	color = mCloud.Sample(gSampler0, noise.xy);
+	color = mCloud.Sample(gSSWrap, noise.xy);
 	color = color * Brightness * -(lightVertexCos - 0.3F);
 
 	return color;
