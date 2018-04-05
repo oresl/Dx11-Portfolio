@@ -1,7 +1,7 @@
 #include "RenderResource\\Pcf.fx"
 
 Texture2D mTexture : register(t0);
-
+//asdf
 struct VertexIn
 {
 	float4 Pos	: POSITION;
