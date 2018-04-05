@@ -159,18 +159,20 @@ namespace func_shader
 		HRESULT hr = D3DX11CreateShaderResourceViewFromFile(device, path.c_str(), &loadInfo, NULL, srv, NULL);
 		assert(SUCCEEDED(hr));
 
-		// 실제로 설정한 format이 적용됬는지 확인
-		ID3D11Texture2D* texture;
-		(*srv)->GetResource((ID3D11Resource**)&texture);
+		//// 실제로 설정한 format이 적용됬는지 확인
+		//ID3D11Texture2D* texture = NULL;
+		//(*srv)->GetResource((ID3D11Resource**)&texture);
 
-		D3D11_TEXTURE2D_DESC textureDesc;
-		ZeroMemory(&textureDesc, sizeof(D3D11_TEXTURE2D_DESC));
-		texture->GetDesc(&textureDesc);
+		//D3D11_TEXTURE2D_DESC textureDesc;
+		//ZeroMemory(&textureDesc, sizeof(D3D11_TEXTURE2D_DESC));
+		//texture->GetDesc(&textureDesc);
 	}
 
 	static void CreateShaderResourceViewArray(ID3D11Device* device, ID3D11DeviceContext* context, vector<wstring> textureNames, wstring extensionName,
 		ID3D11ShaderResourceView** srvArray, bool grayscaled = false)
 	{
+		// extensionName 사용은 안되지만 명시적 확인용으로 남겨둠
+
 		size_t size = textureNames.size();
 		
 		D3DX11_IMAGE_LOAD_INFO loadInfo;
@@ -251,5 +253,46 @@ namespace func_shader
 		{
 			SafeReleaseCom(source[i]);
 		}
+	}
+
+	static void CreateShaderResourceViewFromData(ID3D11Device* device, D3D11_TEXTURE2D_DESC desc, const void* data, ID3D11ShaderResourceView** srv)
+	{
+		D3D11_SUBRESOURCE_DATA texData;
+		ZeroMemory(&texData, sizeof(D3D11_SUBRESOURCE_DATA));
+		texData.pSysMem						= data;
+		texData.SysMemPitch					= sizeof(FLOAT) * desc.Width;
+		texData.SysMemSlicePitch			= 0;
+
+		ID3D11Texture2D* texture			= NULL;
+		device->CreateTexture2D(&desc, &texData, &texture);
+
+		D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc;
+		srvDesc.Format						= DXGI_FORMAT_R32_FLOAT;
+		srvDesc.ViewDimension				= D3D11_SRV_DIMENSION_TEXTURE2D;
+		srvDesc.Texture2D.MostDetailedMip	= 0;
+		srvDesc.Texture2D.MipLevels			= -1;
+
+		device->CreateShaderResourceView(texture, &srvDesc, srv);
+
+		SafeReleaseCom(texture);
+	}
+}
+
+namespace func_data
+{
+	static void GetBYTEFromFile(wstring path, size_t size, vector<BYTE>* data)
+	{
+		vector<BYTE> temp;
+		temp.resize(size);
+
+		ifstream file;
+
+		file.open(path.c_str(), ios_base::binary);
+		assert(!file.fail());
+
+		file.read((char*)&temp[0], (streamsize)temp.size());
+		file.close();
+
+		*data = temp;
 	}
 }
