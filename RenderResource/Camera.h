@@ -34,7 +34,6 @@ public:
 	D3DXMATRIX		GetProjection();
 	D3DXMATRIX		GetOrtho();
 	D3DXMATRIX		GetReflection();
-	D3DXMATRIX		GetFrustumProj();
 
 private:
 	struct BufferData

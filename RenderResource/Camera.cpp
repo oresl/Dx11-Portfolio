@@ -22,35 +22,25 @@ void Camera::Initialize()
 {
 	// 3D 프로젝션 행렬
 	FLOAT fovy		= (FLOAT)D3DX_PI / 4.0F;
-	FLOAT aspect	= (FLOAT)gCFEngine.ScreenX / (FLOAT)gCFEngine.ScreenY;
+	FLOAT aspect	= (FLOAT)gCFEngine.Width / (FLOAT)gCFEngine.Height;
 
 	D3DXMatrixPerspectiveFovLH
 	(
 		&mProjection,
 		fovy,
 		aspect,
-		gCFEngine.ScreenNear,
-		gCFEngine.ScreenDepth
+		gCFEngine.Near,
+		gCFEngine.Depth
 	);
 
 	// 2D 프로젝션 행렬
 	D3DXMatrixOrthoLH
 	(
 		&mOrtho,
-		(FLOAT)gCFEngine.ScreenX,
-		(FLOAT)gCFEngine.ScreenY,
-		gCFEngine.ScreenNear,
-		gCFEngine.ScreenDepth
-	);
-
-	// Frustum용 프로젝션 행렬
-	D3DXMatrixPerspectiveFovLH
-	(
-		&mFrustumProj,
-		fovy,
-		aspect,
-		gCFEngine.ScreenNear,
-		gCFEngine.FrustumDepth
+		(FLOAT)gCFEngine.Width,
+		(FLOAT)gCFEngine.Height,
+		gCFEngine.Near,
+		gCFEngine.Depth
 	);
 
 	// 버퍼 생성
@@ -177,4 +167,3 @@ D3DXMATRIX Camera::GetView()						{ return mView; }
 D3DXMATRIX Camera::GetProjection()					{ return mProjection; }
 D3DXMATRIX Camera::GetOrtho()						{ return mOrtho; }
 D3DXMATRIX Camera::GetReflection()					{ return mReflection; }
-D3DXMATRIX Camera::GetFrustumProj()					{ return mFrustumProj; }
