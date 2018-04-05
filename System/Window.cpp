@@ -18,6 +18,7 @@ CF_Log		gCFLog;
 CF_Texture	gCFTexture;
 CF_Terrain	gCFTerrain;
 CF_Rain		gCFRain;
+CF_Tree		gCFTree;
 CF_SkyPlane	gCFSkyPlane;
 CF_Water	gCFWater;
 
@@ -123,8 +124,8 @@ void Window::InitializeWindow()
 		ChangeDisplaySettings(&screenDesc, CDS_FULLSCREEN);
 
 		// 현재 해상도를 다시 저장
-		gCFEngine.ScreenX = screenDesc.dmPelsWidth;
-		gCFEngine.ScreenY = screenDesc.dmPelsHeight;
+		gCFEngine.Width = screenDesc.dmPelsWidth;
+		gCFEngine.Height = screenDesc.dmPelsHeight;
 
 		positionX = 0;
 		positionY = 0;
@@ -132,12 +133,12 @@ void Window::InitializeWindow()
 	else
 	{
 		// 생성된 윈도우를 화면의 중앙에 위치
-		positionX = (GetSystemMetrics(SM_CXSCREEN) - gCFEngine.ScreenX) / 2;
-		positionY = (GetSystemMetrics(SM_CYSCREEN) - gCFEngine.ScreenY) / 2;
+		positionX = (GetSystemMetrics(SM_CXSCREEN) - gCFEngine.Width) / 2;
+		positionY = (GetSystemMetrics(SM_CYSCREEN) - gCFEngine.Height) / 2;
 	}
 
 	// OS마다 윈도우의 크기가 다름. 따라서 내부영역을 설정해상도로 맞춤
-	RECT rc = { 0, 0, (LONG)gCFEngine.ScreenX, (LONG)gCFEngine.ScreenY };
+	RECT rc = { 0, 0, (LONG)gCFEngine.Width, (LONG)gCFEngine.Height };
 	AdjustWindowRect(&rc, WS_OVERLAPPEDWINDOW, FALSE);
 
 	// 엔진설정 값중 윈도우 핸들값에 입력
