@@ -13,10 +13,5 @@ public:
 
 private:
 	D3DXPLANE mPlane[6];
-	//D3DXPLANE Right;
-	//D3DXPLANE Left;
-	//D3DXPLANE Top;
-	//D3DXPLANE Bottom;
-	//D3DXPLANE Near;
-	//D3DXPLANE Far;
+
 };
