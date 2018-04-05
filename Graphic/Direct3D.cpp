@@ -158,9 +158,9 @@ void Direct3D::InitializeSwapChain()
 
 	for (UINT i = 0; i < numModes; i++)
 	{
-		if (modeDesc[i].Width == gCFEngine.ScreenX)
+		if (modeDesc[i].Width == gCFEngine.Width)
 		{
-			if (modeDesc[i].Height == gCFEngine.ScreenY)
+			if (modeDesc[i].Height == gCFEngine.Height)
 			{
 				numerator	= modeDesc[i].RefreshRate.Numerator;
 				denominator = modeDesc[i].RefreshRate.Denominator;
@@ -175,8 +175,8 @@ void Direct3D::InitializeSwapChain()
 	DXGI_SWAP_CHAIN_DESC swapchainDesc;
 	ZeroMemory(&swapchainDesc, sizeof(DXGI_SWAP_CHAIN_DESC));
 
-	swapchainDesc.BufferDesc.Width						= gCFEngine.ScreenX;
-	swapchainDesc.BufferDesc.Height						= gCFEngine.ScreenY;
+	swapchainDesc.BufferDesc.Width						= gCFEngine.Width;
+	swapchainDesc.BufferDesc.Height						= gCFEngine.Height;
 
 	if (gCFEngine.VsyncEnabled)
 	{
@@ -236,8 +236,8 @@ void Direct3D::InitializeDepthStencilView()
 	D3D11_TEXTURE2D_DESC depthstencilDesc;
 	ZeroMemory(&depthstencilDesc, sizeof(D3D11_TEXTURE2D_DESC));
 
-	depthstencilDesc.Width		= gCFEngine.ScreenX;
-	depthstencilDesc.Height		= gCFEngine.ScreenY;
+	depthstencilDesc.Width		= gCFEngine.Width;
+	depthstencilDesc.Height		= gCFEngine.Height;
 	depthstencilDesc.MipLevels	= 1;
 	depthstencilDesc.ArraySize	= 1;
 	depthstencilDesc.Format		= DXGI_FORMAT_D24_UNORM_S8_UINT;
@@ -273,8 +273,8 @@ void Direct3D::InitializeViewport()
 {
 	mViewport.TopLeftX	= 0.0F;
 	mViewport.TopLeftY	= 0.0F;
-	mViewport.Width		= (FLOAT)gCFEngine.ScreenX;
-	mViewport.Height	= (FLOAT)gCFEngine.ScreenY;
+	mViewport.Width		= (FLOAT)gCFEngine.Width;
+	mViewport.Height	= (FLOAT)gCFEngine.Height;
 	mViewport.MinDepth	= 0.0F;
 	mViewport.MaxDepth	= 1.0F;
 
