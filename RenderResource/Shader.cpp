@@ -45,14 +45,19 @@ void Shader::Initialize(wstring shaderName, const D3D11_INPUT_ELEMENT_DESC* elem
 void Shader::SetShader()
 {
 	D3D.GetContext()->IASetInputLayout(mInputLayout);
+	
 	D3D.GetContext()->VSSetShader(mVS, NULL, 0);
+	D3D.GetContext()->HSSetShader(mHS, NULL, 0);
+	D3D.GetContext()->DSSetShader(mDS, NULL, 0);
 	D3D.GetContext()->PSSetShader(mPS, NULL, 0);
 
-	if (mTessellated)
-	{
-		D3D.GetContext()->HSSetShader(mHS, NULL, 0);
-		D3D.GetContext()->DSSetShader(mDS, NULL, 0);
-	}
+	// ** Tessellation을 쓸 경우, 아래와 같이 Tessellation이 적용된 쉐이더에만 설정을 하면 그 외의 모든 쉐이더가 적용안됨
+	// 왜요..?
+	//if (mTessellated)
+	//{
+	//	D3D.GetContext()->HSSetShader(mHS, NULL, 0);
+	//	D3D.GetContext()->DSSetShader(mDS, NULL, 0);
+	//}
 }
 
 // private
