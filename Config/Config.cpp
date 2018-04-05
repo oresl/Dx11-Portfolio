@@ -35,19 +35,18 @@ void Config::SetConfig(CS_Type type)
 		gCFEngine.Windowed		= GetValueBOOL(ENGINE, L"Windowed");
 		gCFEngine.VsyncEnabled	= GetValueBOOL(ENGINE, L"VsyncEnabled");
 		
-		UINT screenX			= GetValueUINT(ENGINE, L"ScreenX");
-		UINT screenY			= GetValueUINT(ENGINE, L"ScreenY");
-		FLOAT screenNear		= GetValueFLOAT(ENGINE, L"ScreenNear");
-		FLOAT screenDepth		= GetValueFLOAT(ENGINE, L"ScreenDepth");
+		UINT screenX			= GetValueUINT(ENGINE, L"Width");
+		UINT screenY			= GetValueUINT(ENGINE, L"Height");
+		FLOAT screenNear		= GetValueFLOAT(ENGINE, L"Near");
+		FLOAT screenDepth		= GetValueFLOAT(ENGINE, L"Depth");
 		FLOAT cameraSpeed		= GetValueFLOAT(ENGINE, L"CameraSpeed");
 		FLOAT frustumDepth		= GetValueFLOAT(ENGINE, L"FrustumDepth");
 
-		gCFEngine.ScreenX		= Clamp(screenX, (UINT)500, (UINT)GetSystemMetrics(SM_CXSCREEN));
-		gCFEngine.ScreenY		= Clamp(screenY, (UINT)500, (UINT)GetSystemMetrics(SM_CYSCREEN));
-		gCFEngine.ScreenNear	= Clamp(screenNear, 0.1F, 1.0F);
-		gCFEngine.ScreenDepth	= Clamp(screenDepth, 100.0F, 1000.0F);
+		gCFEngine.Width		= Clamp(screenX, (UINT)500, (UINT)GetSystemMetrics(SM_CXSCREEN));
+		gCFEngine.Height		= Clamp(screenY, (UINT)500, (UINT)GetSystemMetrics(SM_CYSCREEN));
+		gCFEngine.Near	= Clamp(screenNear, 0.1F, 1.0F);
+		gCFEngine.Depth	= Clamp(screenDepth, 100.0F, 1000.0F);
 		gCFEngine.CameraSpeed	= Clamp(cameraSpeed, 10.0F, 100.0F);
-		gCFEngine.FrustumDepth	= Clamp(frustumDepth, 10.0F, 100.0F);
 
 		break;
 	}
@@ -82,7 +81,35 @@ void Config::SetConfig(CS_Type type)
 
 	case CS_Terrain:
 	{
-		gCFTerrain;
+		UINT width				= GetValueUINT(TERRAIN, L"Width");
+		UINT depth				= GetValueUINT(TERRAIN, L"Depth");
+		UINT tessValue			= GetValueUINT(TERRAIN, L"TessValue");
+
+		FLOAT minCamDist		= GetValueFLOAT(TERRAIN, L"MinCamDist");
+		FLOAT maxCamDist		= GetValueFLOAT(TERRAIN, L"MaxCamDist");
+		FLOAT minTessStep		= GetValueFLOAT(TERRAIN, L"MinTessStep");
+		FLOAT maxTessStep		= GetValueFLOAT(TERRAIN, L"MaxTessStep");
+		FLOAT scale				= GetValueFLOAT(TERRAIN, L"Scale");
+		FLOAT cellSpacing		= GetValueFLOAT(TERRAIN, L"CellSpacing");
+
+		gCFTerrain.Heightmap	= GetValueString(TERRAIN, L"Heightmap");
+		gCFTerrain.Width		= Clamp(width, (UINT)0, UINT_MAX); 
+		gCFTerrain.Depth		= Clamp(depth, (UINT)0, UINT_MAX);
+		
+		gCFTerrain.TessValue	= Clamp(tessValue, (UINT)0, (UINT)64);
+		gCFTerrain.MinCamDist	= Clamp(minCamDist, 0.0F, 100.0F);
+		gCFTerrain.MaxCamDist	= Clamp(maxCamDist, minCamDist + 100.0F, 600.0F);
+		gCFTerrain.MinTessStep	= Clamp(minTessStep, 0.0F, 1.0F);
+		gCFTerrain.MaxTessStep	= Clamp(maxTessStep, minTessStep + 1.0F, 6.0F);
+		gCFTerrain.Scale		= Clamp(scale, 1.0F, 1000.0F);
+		gCFTerrain.CellSpacing	= Clamp(cellSpacing, 0.1F, 1.0F);
+
+		gCFTerrain.Blendmap		= GetValueString(TERRAIN, L"Blendmap");
+		gCFTerrain.Layermap0	= GetValueString(TERRAIN, L"Layermap0");
+		gCFTerrain.Layermap1	= GetValueString(TERRAIN, L"Layermap1");
+		gCFTerrain.Layermap2	= GetValueString(TERRAIN, L"Layermap2");
+		gCFTerrain.Layermap3	= GetValueString(TERRAIN, L"Layermap3");
+
 		break;
 	}
 
@@ -95,11 +122,19 @@ void Config::SetConfig(CS_Type type)
 
 		gCFRain.Count		= Clamp(count, (UINT)100, (UINT)20000);
 		gCFRain.Speed		= Clamp(speed, 5.0F, 100.0F);
-		gCFRain.StartPosY	= Clamp(startPosY, 20.0F, 100.0F);
+		gCFRain.StartPosY	= Clamp(startPosY, 20.0F, 200.0F);
 		gCFRain.EndPosY		= Clamp(endPosY, -5.0F, 0.0F);
 		break;
 	}
 
+	case CS_Tree:
+	{
+		UINT sort		= GetValueUINT(TREE, L"Sort");
+		UINT count		= GetValueUINT(TREE, L"Count");
+
+		gCFTree.Sort	= Clamp(sort, (UINT)1, (UINT)5);
+		gCFTree.Count	= Clamp(count, (UINT)10, (UINT)200);
+	}
 	//case CS_SkySphere: { break; }
 
 	case CS_SkyPlane:

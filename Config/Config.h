@@ -16,6 +16,7 @@ private:
 		CS_Texture,
 		CS_Terrain,
 		CS_Rain,
+		CS_Tree,
 		//CS_SkySphere,
 		CS_SkyPlane,
 		CS_Water,
@@ -28,6 +29,7 @@ private:
 	const WCHAR TEXTURE[8]		= L"Texture";
 	const WCHAR TERRAIN[8]		= L"Terrain";
 	const WCHAR RAIN[5]			= L"Rain";
+	const WCHAR TREE[5]			= L"Tree";
 	//const WCHAR SKYSPHERE[10]	= L"SkySphere";
 	const WCHAR SKYPLANE[9]		= L"SkyPlane";
 	const WCHAR WATER[6]		= L"Water";
