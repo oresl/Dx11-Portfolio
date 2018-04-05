@@ -40,12 +40,11 @@ namespace config
 		BOOL		Windowed;
 		BOOL		VsyncEnabled;
 		BOOL		MSAAEnabled;
-		UINT		ScreenX;
-		UINT		ScreenY;
-		FLOAT		ScreenNear;
-		FLOAT		ScreenDepth;
+		UINT		Width;
+		UINT		Height;
+		FLOAT		Near;
+		FLOAT		Depth;
 		FLOAT		CameraSpeed;
-		FLOAT		FrustumDepth;
 	} CF_Engine;
 
 	typedef struct CONFIG_LOG
@@ -63,7 +62,23 @@ namespace config
 
 	typedef struct CONFIG_TERRAIN
 	{
+		wstring		Heightmap;
+		UINT		Width;
+		UINT		Depth;
+		UINT		TessValue;
+		
+		FLOAT		MinCamDist;
+		FLOAT		MaxCamDist;
+		FLOAT		MinTessStep;
+		FLOAT		MaxTessStep;
+		FLOAT		Scale;
+		FLOAT		CellSpacing;
 
+		wstring		Blendmap;
+		wstring		Layermap0;
+		wstring		Layermap1;
+		wstring		Layermap2;
+		wstring		Layermap3;
 	} CF_Terrain;
 
 	typedef struct CONFIG_RAIN
@@ -73,6 +88,12 @@ namespace config
 		FLOAT	StartPosY;
 		FLOAT	EndPosY;
 	} CF_Rain;
+
+	typedef struct CONFIG_TREE
+	{
+		UINT	Sort;
+		UINT	Count;
+	} CF_Tree;
 
 	typedef struct CONFIG_SKYPLANE
 	{
@@ -99,6 +120,7 @@ extern CF_Log		gCFLog;
 extern CF_Texture	gCFTexture;
 extern CF_Terrain	gCFTerrain;
 extern CF_Rain		gCFRain;
+extern CF_Tree		gCFTree;
 extern CF_SkyPlane	gCFSkyPlane;
 extern CF_Water		gCFWater;
 
@@ -108,6 +130,7 @@ extern CF_Water		gCFWater;
 using namespace func_math;
 using namespace func_dir;
 using namespace func_shader;
+using namespace func_data;
 
 #include "Singleton.h"
 #include "Log.h"
