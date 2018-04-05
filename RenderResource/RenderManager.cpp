@@ -54,7 +54,7 @@ void RenderManager::AddShader(wstring shaderName, const D3D11_INPUT_ELEMENT_DESC
 	mShaderList.insert(make_pair(shaderName, newShader));
 }
 
-void RenderManager::AddTexture(wstring textureName, EXT_Type ext)
+void RenderManager::AddTexture(wstring textureName, TE_Type ext)
 {
 	auto texture = mTextureList.find(textureName);
 	if (texture != mTextureList.end())
@@ -76,7 +76,7 @@ void RenderManager::AddTexture(wstring textureName, EXT_Type ext)
 	mTextureList.insert(make_pair(textureName, newTexture));
 }
 
-void RenderManager::AddTextureArray(wstring arrayName, vector<wstring> textureNames, EXT_Type ext)
+void RenderManager::AddTextureArray(wstring arrayName, vector<wstring> textureNames, TE_Type ext)
 {
 	auto textureArray = mTextureArrayList.find(arrayName);
 	if (textureArray != mTextureArrayList.end())
@@ -95,7 +95,7 @@ void RenderManager::AddTextureArray(wstring arrayName, vector<wstring> textureNa
 	ID3D11ShaderResourceView* newTexture;
 	CreateShaderResourceViewArray(D3D.GetDevice(), D3D.GetContext(), textureNames, extensionName, &newTexture);
 
-	mTextureList.insert(make_pair(arrayName, newTexture));
+	mTextureArrayList.insert(make_pair(arrayName, newTexture));
 }
 
 void RenderManager::SetShader(wstring shaderName)
@@ -125,6 +125,17 @@ void RenderManager::SetTexture(wstring textureName, UINT startSlot)
 	D3D.GetContext()->HSSetShaderResources(startSlot, 1, &texture->second);
 	D3D.GetContext()->DSSetShaderResources(startSlot, 1, &texture->second);
 	D3D.GetContext()->PSSetShaderResources(startSlot, 1, &texture->second);
+}
+
+void RenderManager::SetTexture(ID3D11ShaderResourceView* srv, UINT startSlot)
+{
+	if (srv)
+	{
+		D3D.GetContext()->VSSetShaderResources(startSlot, 1, &srv);
+		D3D.GetContext()->HSSetShaderResources(startSlot, 1, &srv);
+		D3D.GetContext()->DSSetShaderResources(startSlot, 1, &srv);
+		D3D.GetContext()->PSSetShaderResources(startSlot, 1, &srv);
+	}
 }
 
 void RenderManager::SetTextureArray(wstring arrayName, UINT startSlot)

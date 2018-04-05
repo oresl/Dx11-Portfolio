@@ -15,7 +15,7 @@ typedef enum TEXTURE_EXTENSION_ENUM
 	TE_GIF,
 	TE_BMP,
 	TEXTURE_EXTENSION_COUNT,
-} EXT_Type;
+} TE_Type;
 
 class RenderManager
 {
@@ -24,10 +24,11 @@ public:
 	~RenderManager();
 	void Initialize();
 	void AddShader(wstring shaderName, const D3D11_INPUT_ELEMENT_DESC* elementDesc, UINT elementCount, bool tessellated = false);
-	void AddTexture(wstring textureName, EXT_Type ext);
-	void AddTextureArray(wstring arrayName, vector<wstring> textureNames, EXT_Type ext);
+	void AddTexture(wstring textureName, TE_Type ext);
+	void AddTextureArray(wstring arrayName, vector<wstring> textureNames, TE_Type ext);
 	void SetShader(wstring shaderName);
 	void SetTexture(wstring textureName, UINT startSlot);
+	void SetTexture(ID3D11ShaderResourceView* srv, UINT startSlot);
 	void SetTextureArray(wstring arrayName, UINT startSlot);
 	void SetRasterizerState(RS_Type type);
 	void SetBlendState(BS_Type type);
