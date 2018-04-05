@@ -35,7 +35,7 @@ PixelIn VS(VertexIn input)
 float4 PS(PixelIn input) : SV_Target
 {
 	// ÅØ½ºÃÄ
-	float4 texColor = mTexture.Sample(gSampler0, input.Tex);
+	float4 texColor = mTexture.Sample(gSSWrap, input.Tex);
 	
 	// ºû
 	float4 ligColor = gAmbient0;
