@@ -157,10 +157,13 @@
     <ClCompile Include="Config\Config.cpp" />
     <ClCompile Include="GameSource\Cube.cpp" />
     <ClCompile Include="GameSource\Game.cpp" />
+    <ClCompile Include="GameSource\Leaf.cpp" />
     <ClCompile Include="GameSource\Rain.cpp" />
     <ClCompile Include="GameSource\SkyPlane.cpp" />
     <ClCompile Include="GameSource\SkySphere.cpp" />
     <ClCompile Include="GameSource\Sphere.cpp" />
+    <ClCompile Include="GameSource\Terrain.cpp" />
+    <ClCompile Include="GameSource\Trunk.cpp" />
     <ClCompile Include="Graphic\BlendState.cpp" />
     <ClCompile Include="Graphic\DepthStencilState.cpp" />
     <ClCompile Include="Graphic\Direct3D.cpp" />
@@ -172,6 +175,7 @@
     <ClCompile Include="RenderResource\Light.cpp" />
     <ClCompile Include="RenderResource\Material.cpp" />
     <ClCompile Include="RenderResource\RenderManager.cpp" />
+    <ClCompile Include="RenderResource\RenderTexture.cpp" />
     <ClCompile Include="RenderResource\Shader.cpp" />
     <ClCompile Include="System\DirectInput.cpp" />
     <ClCompile Include="System\Timer.cpp" />
@@ -185,10 +189,13 @@
     <ClInclude Include="Config\Config.h" />
     <ClInclude Include="GameSource\Cube.h" />
     <ClInclude Include="GameSource\Game.h" />
+    <ClInclude Include="GameSource\Leaf.h" />
     <ClInclude Include="GameSource\Rain.h" />
     <ClInclude Include="GameSource\SkyPlane.h" />
     <ClInclude Include="GameSource\SkySphere.h" />
     <ClInclude Include="GameSource\Sphere.h" />
+    <ClInclude Include="GameSource\Terrain.h" />
+    <ClInclude Include="GameSource\Trunk.h" />
     <ClInclude Include="Graphic\BlendState.h" />
     <ClInclude Include="Graphic\DepthStencilState.h" />
     <ClInclude Include="Graphic\Direct3D.h" />
@@ -199,6 +206,7 @@
     <ClInclude Include="RenderResource\Light.h" />
     <ClInclude Include="RenderResource\Material.h" />
     <ClInclude Include="RenderResource\RenderManager.h" />
+    <ClInclude Include="RenderResource\RenderTexture.h" />
     <ClInclude Include="RenderResource\Shader.h" />
     <ClInclude Include="System\DirectInput.h" />
     <ClInclude Include="System\Timer.h" />
@@ -250,6 +258,33 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="GameSource\Rain.fx">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="GameSource\Terrain.fx">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="GameSource\Trunk.fx">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="GameSource\Leaf.fx">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>

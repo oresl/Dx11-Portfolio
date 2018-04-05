@@ -4,6 +4,7 @@
 Game::Game()
 {
 	mWireFrame		= false;
+	mRained			= false;
 	mRenderManager	= NULL;
 	mCamera			= NULL;
 	mFrustum		= NULL;
@@ -45,14 +46,15 @@ void Game::Update(FLOAT delta)
 		mWireFrame = !mWireFrame;
 
 	if (Input.KeyUp(DIK_2))
-		mWireFrame = !mWireFrame;
+		mRained = !mRained;
 
 	if (Input.KeyUp(DIK_ESCAPE))
 		PostQuitMessage(0);
 }
 
 void Game::PreRender()
-{}
+{
+}
 
 void Game::Render()
 {
@@ -75,25 +77,69 @@ void Game::Render()
 		mRenderManager->SetBlendState(BS_SkyPlane);
 
 		mRenderManager->SetShader(L"SkyPlane");
-		mSkyPlane->SetPosition(camPos.x, camPos.y, camPos.z);
-		mSkyPlane->SetBuffer();
 		mRenderManager->SetTexture(L"Cloud", 0);
 		mRenderManager->SetTexture(L"Noise", 1);
+		mSkyPlane->SetPosition(camPos.x, camPos.y, camPos.z);
+		mSkyPlane->SetBuffer();
 		mRenderManager->SetIAParameterAndDraw(mSkyPlane);
 	}
 	
 	mRenderManager->SetBlendState(BS_Default);
 	mRenderManager->SetDepthStencilState(DS_Default);
 
-	// Rain
+	// Terrain
 	{
 		mRenderManager->SetRasterizerState(mWireFrame ? RS_WireFrame_CullBack : RS_CullBack);
 
+		mRenderManager->SetShader(L"Terrain");
+		mRenderManager->SetTexture(mTerrain->GetHeightmap(), 0);
+		mRenderManager->SetTexture(L"Blendmap", 1);
+		mRenderManager->SetTextureArray(L"LayermapArray", 2);
+		mTerrain->SetBuffer();
+		mRenderManager->SetIAParameterAndDraw(mTerrain);
+	}
+
+	//mRenderManager->SetRasterizerState(RS_Default);
+
+	// TODO:: Normal값 적용할 것
+	// Tree
+	{
+		// Trunk
+		vector<wstring> imgTrunk;
+		vector<wstring> imgLeaf;
+		imgTrunk.push_back(L"Trunk1");	imgTrunk.push_back(L"Trunk2");	imgTrunk.push_back(L"Trunk3");
+		imgLeaf.push_back(L"Leaf1");	imgLeaf.push_back(L"Leaf2");	imgLeaf.push_back(L"Leaf3");
+
+		for (int i = 0; i < gCFTree.Sort; i++)
+		{
+			mRenderManager->SetShader(L"Trunk");
+			mRenderManager->SetTexture(imgTrunk[i].c_str(), 0);
+			mTrunk[i].SetBuffer();
+			mRenderManager->SetIAParameterAndDraw(&mTrunk[i]);
+		}
+	
+		// Leaf
+		mRenderManager->SetBlendState(BS_Alpha);
+
+		for (int i = 0; i < gCFTree.Sort; i++)
+		{
+			mRenderManager->SetShader(L"Leaf");
+			mRenderManager->SetTexture(imgLeaf[i].c_str(), 0);
+			mLeaf[i].SetBuffer();
+			mRenderManager->SetIAParameterAndDraw(&mLeaf[i]);
+		}
+	}
+
+	mRenderManager->SetBlendState(BS_Default);
+
+	// Rain
+	if (mRained)
+	{
 		mRenderManager->SetShader(L"Rain");
 		mRain->SetBuffer();
 		mRenderManager->SetIAParameterAndDraw(mRain);
 	}
-
+		
 	// Cube (Material0)
 	{
 		mRenderManager->SetShader(L"Cube");
@@ -159,13 +205,32 @@ void Game::InitializeRenderResource()
 	mRenderManager->AddShader(L"Sphere", IL_PosTexNor::sElementDesc, IL_PosTexNor::sElementCount, false);	// Material 1
 	mRenderManager->AddShader(L"SkySphere", IL_Pos::sElementDesc, IL_Pos::sElementCount, false);
 	mRenderManager->AddShader(L"SkyPlane", IL_PosTex::sElementDesc, IL_PosTex::sElementCount, false);
-	mRenderManager->AddShader(L"Rain", IL_Instance::sElementDesc, IL_Instance::sElementCount, false);
+	mRenderManager->AddShader(L"Terrain", IL_PosTex::sElementDesc, IL_PosTex::sElementCount, true);
+	mRenderManager->AddShader(L"Rain", IL_PosInst::sElementDesc, IL_PosInst::sElementCount, false);
+	mRenderManager->AddShader(L"Trunk", IL_PosTexInst::sElementDesc, IL_PosTexInst::sElementCount, false);
+	mRenderManager->AddShader(L"Leaf", IL_PosTexInst::sElementDesc, IL_PosTexInst::sElementCount, false);
 
 	mRenderManager->AddTexture(L"Test", TE_GIF);
 	mRenderManager->AddTexture(L"Trapezoid", TE_JPG);
 	mRenderManager->AddTexture(L"Earth", TE_PNG);
 	mRenderManager->AddTexture(L"Cloud", TE_DDS);
 	mRenderManager->AddTexture(L"Noise", TE_DDS);
+
+	mRenderManager->AddTexture(L"Blendmap", TE_DDS);
+	vector<wstring> layermap;
+	wstring path = L"Data\\Texture\\";
+	layermap.push_back(path + gCFTerrain.Layermap0);
+	layermap.push_back(path + gCFTerrain.Layermap1);
+	layermap.push_back(path + gCFTerrain.Layermap2);
+	layermap.push_back(path + gCFTerrain.Layermap3);
+	mRenderManager->AddTextureArray(L"LayermapArray", layermap, TE_DDS);
+
+	mRenderManager->AddTexture(L"Trunk1", TE_DDS);
+	mRenderManager->AddTexture(L"Trunk2", TE_DDS);
+	mRenderManager->AddTexture(L"Trunk3", TE_DDS);
+	mRenderManager->AddTexture(L"Leaf1", TE_DDS);
+	mRenderManager->AddTexture(L"Leaf2", TE_DDS);
+	mRenderManager->AddTexture(L"Leaf3", TE_DDS);
 }
 
 void Game::InitializeGameObject()
@@ -182,8 +247,22 @@ void Game::InitializeGameObject()
 	mSkyPlane = new SkyPlane;
 	mSkyPlane->Initialize();
 
+	mTerrain = new Terrain;
+	mTerrain->Initialize();
+
 	mRain = new Rain;
 	mRain->Initialize();
+
+	mTrunk	= new Trunk[gCFTree.Sort];
+	mLeaf	= new Leaf[gCFTree.Sort];
+	
+	FLOAT scale = 0.2F;
+	for (int i = 0; i < gCFTree.Sort; i++)
+	{
+		mTrunk[i].Initialize(mTerrain, scale);
+		mLeaf[i].Initialize(&mTrunk[i], scale);
+		scale += 0.1F;
+	}
 }
 
 void Game::UpdateRenderResource(FLOAT delta)
@@ -193,10 +272,11 @@ void Game::UpdateRenderResource(FLOAT delta)
 	mCamera->UpdateReflection(0.0F);
 	mCamera->SetBuffer();
 
-	D3DXMATRIX view			= mCamera->GetView();
-	D3DXMATRIX frustumProj	= mCamera->GetFrustumProj();
+	// TODO:: Frustum이 이상합니다.. 내가 이상한 것 같지만 일단 이상합니다
+	D3DXMATRIX view = mCamera->GetView();
+	D3DXMATRIX proj = mCamera->GetProjection();
 	D3DXMATRIX viewProj;
-	D3DXMatrixMultiply(&viewProj, &view, &frustumProj);
+	D3DXMatrixMultiply(&viewProj, &view, &proj);
 	mFrustum->SetFrustum(viewProj);
 
 	// Light, Material
@@ -210,6 +290,14 @@ void Game::UpdateRenderResource(FLOAT delta)
 void Game::UpdateGameObject(FLOAT delta)
 {
 	mSkyPlane->Update(delta);
-	mRain->Update(delta, mCamera, mFrustum);
+	
+	if (mRained)
+		mRain->Update(delta, mCamera, mFrustum);
+
+	for (int i = 0; i < gCFTree.Sort; i++)
+	{
+		mTrunk[i].Update(mFrustum);
+		mLeaf[i].Update(mFrustum);
+	}
 }
 

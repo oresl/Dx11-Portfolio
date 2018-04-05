@@ -4,6 +4,7 @@
 #include "..\RenderResource\Frustum.h"
 #include "..\RenderResource\Light.h"
 #include "..\RenderResource\Material.h"
+#include "..\RenderResource\RenderTexture.h"
 #include "..\RenderResource\RenderManager.h"
 
 #include "Cube.h"
@@ -11,7 +12,10 @@
 
 #include "SkySphere.h"
 #include "SkyPlane.h"
+#include "Terrain.h"
 #include "Rain.h"
+#include "Trunk.h"
+#include "Leaf.h"
 
 class Game
 {
@@ -25,7 +29,8 @@ public:
 
 private:
 	bool			mWireFrame;
-	
+	bool			mRained;
+
 	RenderManager*	mRenderManager;
 	Camera*			mCamera;
 	Frustum*		mFrustum;
@@ -33,12 +38,27 @@ private:
 	Material*		mMaterial0;
 	Material*		mMaterial1;
 
-	Cube*			mCube;		// Material0
-	Sphere*			mSphere;	// Material1
+	Cube*			mCube;				// Material0
+	RenderTexture*	mCubeReflect;
+
+	Sphere*			mSphere;			// Material1
+	RenderTexture*	mSphereReflect;
 
 	SkySphere*		mSkySphere;
+	RenderTexture*	mSkySphereReflect;
+
 	SkyPlane*		mSkyPlane;
+	RenderTexture*	mSkyPlaneReflect;
+
+	Terrain*		mTerrain;
+	RenderTexture*	mTrunkShadow;
+
 	Rain*			mRain;
+
+	Trunk*			mTrunk;
+	RenderTexture*	mTrunkShadow;
+	Leaf*			mLeaf;
+	RenderTexture*	mLeafShadow;
 
 	void			InitializeRenderResource();
 	void			InitializeGameObject();

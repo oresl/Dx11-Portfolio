@@ -40,6 +40,9 @@
     <Filter Include="RenderResource\Light">
       <UniqueIdentifier>{62ae5d3d-ad7d-4e6e-a030-c4b7b37be303}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameSource\Landscape\Tree">
+      <UniqueIdentifier>{4654b7dc-c6f9-439c-995b-9eb51a6c0b77}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
@@ -105,6 +108,18 @@
     </ClCompile>
     <ClCompile Include="GameSource\Rain.cpp">
       <Filter>GameSource\Landscape</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSource\Terrain.cpp">
+      <Filter>GameSource\Landscape</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSource\Trunk.cpp">
+      <Filter>GameSource\Landscape\Tree</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSource\Leaf.cpp">
+      <Filter>GameSource\Landscape\Tree</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderResource\RenderTexture.cpp">
+      <Filter>RenderResource</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -183,6 +198,18 @@
     <ClInclude Include="GameSource\Rain.h">
       <Filter>GameSource\Landscape</Filter>
     </ClInclude>
+    <ClInclude Include="GameSource\Terrain.h">
+      <Filter>GameSource\Landscape</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSource\Trunk.h">
+      <Filter>GameSource\Landscape\Tree</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSource\Leaf.h">
+      <Filter>GameSource\Landscape\Tree</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderResource\RenderTexture.h">
+      <Filter>RenderResource</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Config\Config.ini">
@@ -205,6 +232,15 @@
     </None>
     <None Include="GameSource\Rain.fx">
       <Filter>GameSource\Landscape</Filter>
+    </None>
+    <None Include="GameSource\Terrain.fx">
+      <Filter>GameSource\Landscape</Filter>
+    </None>
+    <None Include="GameSource\Leaf.fx">
+      <Filter>GameSource\Landscape\Tree</Filter>
+    </None>
+    <None Include="GameSource\Trunk.fx">
+      <Filter>GameSource\Landscape\Tree</Filter>
     </None>
   </ItemGroup>
 </Project>
