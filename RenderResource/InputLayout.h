@@ -55,7 +55,16 @@ namespace inputlayout
 		static const D3D11_INPUT_ELEMENT_DESC sElementDesc[];
 		static const UINT sElementCount;
 
-	} IL_Instance;
+	} IL_PosInst;
+
+	typedef struct INPUT_LAYOUT_TYPE_5
+	{
+		D3DXMATRIX World;
+
+		static const D3D11_INPUT_ELEMENT_DESC sElementDesc[];
+		static const UINT sElementCount;
+
+	} IL_PosTexInst;
 
 	typedef struct INPUT_LAYOUT_TYPE_EXTRA_0
 	{
@@ -110,9 +119,10 @@ protected:
 
 	InputLayout();
 	virtual ~InputLayout();
-	virtual void			InitializeData() = 0;
+	//virtual void			Update(FLOAT delta) = 0;
+	//virtual void			InitializeData() = 0;
 	virtual void			InitializeBuffer() = 0;
-	void					GetInputLayoutFromFile(wstring meshName);
+	void					GetInputLayoutFromFile(wstring meshName, FLOAT scale = 1.0F);
 	void					SetWorldBuffer();
 	virtual void			SetBuffer() = 0;
 };

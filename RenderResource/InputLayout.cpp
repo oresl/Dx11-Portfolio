@@ -41,7 +41,7 @@ const D3D11_INPUT_ELEMENT_DESC IL_PosTexNorTanBiN::sElementDesc[] =
 };
 const UINT IL_PosTexNorTanBiN::sElementCount = ARRAYSIZE(sElementDesc);
 
-const D3D11_INPUT_ELEMENT_DESC IL_Instance::sElementDesc[] =
+const D3D11_INPUT_ELEMENT_DESC IL_PosInst::sElementDesc[] =
 {
 	{ "POSITION",	0, FLOAT3, 0,		0, VERTEX_DATA	, 0 },
 	{ "WORLD",		0, FLOAT4, 1,		0, INSTANCE_DATA, 1 },
@@ -49,7 +49,18 @@ const D3D11_INPUT_ELEMENT_DESC IL_Instance::sElementDesc[] =
 	{ "WORLD",		2, FLOAT4, 1, ALIGNED, INSTANCE_DATA, 1 },
 	{ "WORLD",		3, FLOAT4, 1, ALIGNED, INSTANCE_DATA, 1 },
 };
-const UINT IL_Instance::sElementCount = ARRAYSIZE(sElementDesc);
+const UINT IL_PosInst::sElementCount = ARRAYSIZE(sElementDesc);
+
+const D3D11_INPUT_ELEMENT_DESC IL_PosTexInst::sElementDesc[] =
+{
+	{ "POSITION",	0, FLOAT3, 0,		0, VERTEX_DATA	, 0 },
+	{ "TEXCOORD",	0, FLOAT2, 0, ALIGNED, VERTEX_DATA	, 0 },
+	{ "WORLD",		0, FLOAT4, 1,		0, INSTANCE_DATA, 1 },
+	{ "WORLD",		1, FLOAT4, 1, ALIGNED, INSTANCE_DATA, 1 },
+	{ "WORLD",		2, FLOAT4, 1, ALIGNED, INSTANCE_DATA, 1 },
+	{ "WORLD",		3, FLOAT4, 1, ALIGNED, INSTANCE_DATA, 1 },
+};
+const UINT IL_PosTexInst::sElementCount = ARRAYSIZE(sElementDesc);
 
 const D3D11_INPUT_ELEMENT_DESC IL_Extra_0::sElementDesc[] =
 {
@@ -113,7 +124,7 @@ InputLayout::~InputLayout()
 	SafeReleaseCom(mVertexBuffer);
 }
 
-void InputLayout::GetInputLayoutFromFile(wstring meshName)
+void InputLayout::GetInputLayoutFromFile(wstring meshName, FLOAT scale)
 {
 	wstring path = L"Data\\Mesh\\" + meshName + L".txt";
 
@@ -141,6 +152,8 @@ void InputLayout::GetInputLayoutFromFile(wstring meshName)
 		file >> mTempData[i].Pos.x >> mTempData[i].Pos.y >> mTempData[i].Pos.z;
 		file >> mTempData[i].Tex.x >> mTempData[i].Tex.y;
 		file >> mTempData[i].Nor.x >> mTempData[i].Nor.y >> mTempData[i].Nor.z;
+
+		mTempData[i].Pos *= scale;
 	}
 
 	file.close();
