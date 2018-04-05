@@ -72,27 +72,36 @@ MinLOD				= -3.402823466e+38F; // -FLT_MAX
 MaxLOD				= 3.402823466e+38F; // FLT_MAX
 */
 
-SamplerState gSampler0
+SamplerState gSSWrap
 {
-	Filter			= MIN_MAG_MIP_LINEAR;
-	
-	AddressU		= WRAP;
-	AddressV		= WRAP;
-	AddressW		= WRAP;
+	Filter = MIN_MAG_MIP_LINEAR;
+			 
+	AddressU = WRAP;
+	AddressV = WRAP;
+	AddressW = WRAP;
 };
 
-SamplerState gSampler1
+SamplerState gSSClamp
 {
-	Filter = MIN_LINEAR_MAG_MIP_POINT;
+	Filter = MIN_MAG_MIP_LINEAR;
+
+	AddressU = CLAMP;
+	AddressV = CLAMP;
+	AddressW = CLAMP;
 };
 
-SamplerState gSampler2
-{
-	Filter = MIN_POINT_MAG_LINEAR_MIP_POINT;
-};
-
-SamplerState gSampler3
-{
-	Filter = ANISOTROPIC;
-	MaxAnisotropy = 4;
-};
+//SamplerState gSampler1
+//{
+//	Filter = MIN_LINEAR_MAG_MIP_POINT;
+//};
+//
+//SamplerState gSampler2
+//{
+//	Filter = MIN_POINT_MAG_LINEAR_MIP_POINT;
+//};
+//
+//SamplerState gSampler3
+//{
+//	Filter = ANISOTROPIC;
+//	MaxAnisotropy = 4;
+//};
