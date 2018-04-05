@@ -31,8 +31,8 @@ void Light::Initialize()
 		&mProjection,
 		fovy,
 		aspect,
-		gCFEngine.ScreenNear,
-		gCFEngine.ScreenDepth
+		gCFEngine.Near,
+		gCFEngine.Depth
 	);
 
 	CreateBuffer(D3D.GetDevice(), D3D11_BIND_CONSTANT_BUFFER, sizeof(BufferData), D3D11_USAGE_DYNAMIC, NULL, &mBuffer);
