@@ -27,7 +27,6 @@ void BlendState::Initialize()
 	D3D11_BLEND_DESC bsDesc;
 	ZeroMemory(&bsDesc, sizeof(D3D11_BLEND_DESC));
 
-	bsDesc.AlphaToCoverageEnable	= FALSE;
 	bsDesc.IndependentBlendEnable	= FALSE;	// FALSE면 모든 렌더타겟이 RenderTarget[0]의 속성을 사용
 
 	/*
@@ -53,6 +52,7 @@ void BlendState::Initialize()
 	//}
 	
 	// Transparency
+	bsDesc.AlphaToCoverageEnable					= FALSE;
 	bsDesc.RenderTarget[0].BlendEnable				= TRUE;
 	bsDesc.RenderTarget[0].SrcBlend					= D3D11_BLEND_SRC_ALPHA;
 	bsDesc.RenderTarget[0].DestBlend				= D3D11_BLEND_INV_SRC_ALPHA;
@@ -63,9 +63,23 @@ void BlendState::Initialize()
 	bsDesc.RenderTarget[0].RenderTargetWriteMask	= D3D11_COLOR_WRITE_ENABLE_ALL;
 
 	D3D.GetDevice()->CreateBlendState(&bsDesc, &mState[(int)BS_Transparency]);
+	
+	// Alpha
+	// Transparency
+	bsDesc.AlphaToCoverageEnable					= TRUE;
+	bsDesc.RenderTarget[0].BlendEnable				= TRUE;
+	bsDesc.RenderTarget[0].SrcBlend					= D3D11_BLEND_ONE;
+	bsDesc.RenderTarget[0].DestBlend				= D3D11_BLEND_INV_SRC_ALPHA;
+	bsDesc.RenderTarget[0].BlendOp					= D3D11_BLEND_OP_ADD;
+	bsDesc.RenderTarget[0].SrcBlendAlpha			= D3D11_BLEND_ONE;
+	bsDesc.RenderTarget[0].DestBlendAlpha			= D3D11_BLEND_ZERO;
+	bsDesc.RenderTarget[0].BlendOpAlpha				= D3D11_BLEND_OP_ADD;
+	bsDesc.RenderTarget[0].RenderTargetWriteMask	= D3D11_COLOR_WRITE_ENABLE_ALL;
+	
 	D3D.GetDevice()->CreateBlendState(&bsDesc, &mState[(int)BS_Alpha]);
 
 	// SkyPlane
+	bsDesc.AlphaToCoverageEnable					= FALSE;
 	bsDesc.RenderTarget[0].BlendEnable				= TRUE;
 	bsDesc.RenderTarget[0].SrcBlend					= D3D11_BLEND_ONE;
 	bsDesc.RenderTarget[0].DestBlend				= D3D11_BLEND_ONE;
