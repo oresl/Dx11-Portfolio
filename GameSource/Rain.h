@@ -11,13 +11,13 @@ public:
 	Rain();
 	~Rain();
 	void					Initialize();
-	virtual void			Update(FLOAT delta, Camera* cam, Frustum* frustum);
+	void					Update(FLOAT delta, Camera* cam, Frustum* frustum);
 	void					SetBuffer();
 
 private:
 	vector<IL_Pos>			mVertexData;
 	vector<UINT>			mIndexData;
-	vector<IL_Instance>		mInstanceData;
+	vector<IL_PosInst>		mInstanceData;
 	vector<D3DXVECTOR3>		mInstancePos;
 
 	virtual void			InitializeData();

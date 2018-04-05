@@ -18,7 +18,7 @@ void Rain::Initialize()
 	mInstanced					= true;
 	mTessellated				= false;
 	mInputLayoutSize			= sizeof(IL_Pos);
-	mInputLayoutInstanceSize	= sizeof(IL_Instance);
+	mInputLayoutInstanceSize	= sizeof(IL_PosInst);
 
 	InitializeData();
 	InitializeBuffer();
@@ -30,7 +30,7 @@ void Rain::Update(FLOAT delta, Camera* cam, Frustum* frustum)
 
 	D3DXVECTOR3 camPos = cam->GetPosition();
 
-	vector<IL_Instance> data;
+	vector<IL_PosInst> data;
 	data.resize(mInstanceCount);
 
 	for (UINT i = 0; i < mInstanceCount; i++)
@@ -54,6 +54,7 @@ void Rain::Update(FLOAT delta, Camera* cam, Frustum* frustum)
 
 		// 월드 업데이트
 		D3DXMATRIX rotate, trans;
+
 		D3DXMatrixRotationY(&rotate, angle * 0.0174532925F);
 		D3DXMatrixTranslation(&trans, instPos.x, instPos.y, instPos.z);
 		D3DXMatrixMultiply(&mInstanceData[i].World, &rotate, &trans);
@@ -66,7 +67,7 @@ void Rain::Update(FLOAT delta, Camera* cam, Frustum* frustum)
 		mDrawCount++;
 	}
 
-	UpdateVertexBuffer(D3D.GetContext(), mInstanceBuffer, &data[0], sizeof(IL_Instance) * mInstanceCount);
+	UpdateVertexBuffer(D3D.GetContext(), mInstanceBuffer, &data[0], sizeof(IL_PosInst) * mInstanceCount);
 }
 
 void Rain::SetBuffer()
@@ -78,24 +79,24 @@ void Rain::SetBuffer()
 void Rain::InitializeData()
 {
 	// 사각형
-	mVertexCount	= 6;
-	mIndexCount		= 6;
-	mInstanceCount	= gCFRain.Count;
+	mVertexCount = 6;
 
 	// Vertex
 	mVertexData.resize(mVertexCount);
 
 	// BL > TR > BR
-	mVertexData[0].Pos = D3DXVECTOR3(-0.01F, -0.1F, 0.0F);
-	mVertexData[1].Pos = D3DXVECTOR3( 0.01F,  0.1F, 0.0F);
-	mVertexData[2].Pos = D3DXVECTOR3( 0.01F, -0.1F, 0.0F);
+	mVertexData[0].Pos = D3DXVECTOR3(-0.01F, -0.2F, 0.0F);
+	mVertexData[1].Pos = D3DXVECTOR3( 0.01F,  0.2F, 0.0F);
+	mVertexData[2].Pos = D3DXVECTOR3( 0.01F, -0.2F, 0.0F);
 
 	// TR > BL > TL
-	mVertexData[3].Pos = D3DXVECTOR3( 0.01F,  0.1F, 0.0F);
-	mVertexData[4].Pos = D3DXVECTOR3(-0.01F, -0.1F, 0.0F);
-	mVertexData[5].Pos = D3DXVECTOR3(-0.01F,  0.1F, 0.0F);
+	mVertexData[3].Pos = D3DXVECTOR3( 0.01F,  0.2F, 0.0F);
+	mVertexData[4].Pos = D3DXVECTOR3(-0.01F, -0.2F, 0.0F);
+	mVertexData[5].Pos = D3DXVECTOR3(-0.01F,  0.2F, 0.0F);
 
 	// Index
+	mIndexCount = 6;
+
 	mIndexData.resize(mIndexCount);
 	
 	for (UINT i = 0; i < mIndexCount; i++)
@@ -104,6 +105,8 @@ void Rain::InitializeData()
 	}
 
 	// Instance
+	mInstanceCount = gCFRain.Count;
+
 	mInstanceData.resize(mInstanceCount);
 	mInstancePos.resize(mInstanceCount);
 
@@ -113,23 +116,19 @@ void Rain::InitializeData()
 		D3DXMatrixIdentity(&instWorld);
 
 		// Terrain 전역에 비를 내리게
-		//FLOAT positionX = (FLOAT)(rand() % ((gConfigLandscape.TerrainHeightmapWidth - 1) / 2)) - ((gConfigLandscape.TerrainHeightmapWidth - 1) / 2) * 0.5F;
-		//FLOAT positionY = (FLOAT)rand() / (FLOAT)RAND_MAX * gConfigLandscape.RainStartPositionY;
-		//FLOAT positionZ = (FLOAT)(rand() % ((gConfigLandscape.TerrainHeightmapDepth - 1) / 2)) - ((gConfigLandscape.TerrainHeightmapDepth - 1) / 2) * 0.5F;
-		
-		FLOAT positionX = (FLOAT)(rand() % 256) - 256 * 0.5F;
-		FLOAT positionY = (FLOAT)rand() / (FLOAT)RAND_MAX * gCFRain.StartPosY;
-		FLOAT positionZ = (FLOAT)(rand() % 256) - 256 * 0.5F;
+		FLOAT posX = (FLOAT)(rand() % ((gCFTerrain.Width - 1) / 2)) - ((gCFTerrain.Width - 1) / 2) * 0.5F;
+		FLOAT posY = (FLOAT)rand() / (FLOAT)RAND_MAX * gCFRain.StartPosY;
+		FLOAT posZ = (FLOAT)(rand() % ((gCFTerrain.Depth - 1) / 2)) - ((gCFTerrain.Depth - 1) / 2) * 0.5F;
 
 		// 수정
 		//instWorld._41 = positionX;
 		//instWorld._42 = positionY;
 		//instWorld._43 = positionZ;
-		D3DXMatrixTranslation(&instWorld, positionX, positionY, positionZ);
+		D3DXMatrixTranslation(&instWorld, posX, posY, posZ);
 
-		mInstancePos[i].x = positionX; //instWorld._41;
-		mInstancePos[i].y = positionY; //instWorld._42;
-		mInstancePos[i].z = positionZ; //instWorld._43;
+		mInstancePos[i].x = posX; //instWorld._41;
+		mInstancePos[i].y = posY; //instWorld._42;
+		mInstancePos[i].z = posZ; //instWorld._43;
 
 		mInstanceData[i].World = instWorld;
 	}
@@ -163,7 +162,7 @@ void Rain::InitializeBuffer()
 	(
 		D3D.GetDevice(),
 		D3D11_BIND_VERTEX_BUFFER,
-		sizeof(IL_Instance) * mInstanceCount,
+		sizeof(IL_PosInst) * mInstanceCount,
 		D3D11_USAGE_DYNAMIC,
 		&mInstanceData[0],
 		&mInstanceBuffer
